@@ -32,16 +32,30 @@
                     
                 </li>
 
-                <li class=" nav-item"><a class="d-flex align-items-center" href="#"><i data-feather="shopping-bag"></i><span class="menu-title text-truncate" data-i18n="eCommerce">Agent</span></a>
+                @if (Auth::user()->type == 'admin')
+                    <li class=" nav-item"><a class="d-flex align-items-center" href="#"><i data-feather="shopping-bag"></i><span class="menu-title text-truncate" data-i18n="eCommerce">Agent</span></a>
+                        <ul class="menu-content">
+                            <li><a class="d-flex align-items-center" href="{{ route('admin.agent.index')}}"><i data-feather="circle"></i><span class="menu-item text-truncate" data-i18n="Shop"> List</span></a>
+                            </li>
+                            <li><a class="d-flex align-items-center" href="{{ route('admin.agent.create')}}"><i data-feather="circle"></i><span class="menu-item text-truncate" data-i18n="Details">Add</span></a>
+                            </li>
+                            <!-- <li><a class="d-flex align-items-center" href="app-ecommerce-wishlist.html"><i data-feather="circle"></i><span class="menu-item text-truncate" data-i18n="Wish List">Category</span></a>
+                            </li> -->
+                        </ul>
+                    </li>
+                @endif
+
+                <li class=" nav-item"><a class="d-flex align-items-center" href="#"><i data-feather="shopping-bag"></i><span class="menu-title text-truncate" data-i18n="eCommerce">Orders</span></a>
                     <ul class="menu-content">
-                        <li><a class="d-flex align-items-center" href="{{ route('admin.agent.index')}}"><i data-feather="circle"></i><span class="menu-item text-truncate" data-i18n="Shop"> List</span></a>
+                        <li><a class="d-flex align-items-center" href="{{ route('admin.orders.index')}}"><i data-feather="circle"></i><span class="menu-item text-truncate" data-i18n="Shop"> List</span></a>
                         </li>
-                        <li><a class="d-flex align-items-center" href="{{ route('admin.agent.create')}}"><i data-feather="circle"></i><span class="menu-item text-truncate" data-i18n="Details">Add</span></a>
+                        <li><a class="d-flex align-items-center" href="{{ route('admin.orders.create')}}"><i data-feather="circle"></i><span class="menu-item text-truncate" data-i18n="Details">Add</span></a>
                         </li>
-                        <!-- <li><a class="d-flex align-items-center" href="app-ecommerce-wishlist.html"><i data-feather="circle"></i><span class="menu-item text-truncate" data-i18n="Wish List">Category</span></a>
-                        </li> -->
                     </ul>
                 </li>
+
+
+                
 
                 
 

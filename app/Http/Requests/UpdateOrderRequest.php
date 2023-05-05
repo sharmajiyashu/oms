@@ -4,7 +4,7 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class UpdateAgentRequest extends FormRequest
+class UpdateOrderRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -13,7 +13,7 @@ class UpdateAgentRequest extends FormRequest
      */
     public function authorize()
     {
-        return true;
+        return false;
     }
 
     /**
@@ -24,11 +24,7 @@ class UpdateAgentRequest extends FormRequest
     public function rules()
     {
         return [
-            'status' => 'required|in:Active,Inactive',
-            'firstname'  => 'required',
-            'lastname'  => 'required',
-            // 'email'  => 'required',
-            'mobile'  => 'required',
+            //
         ];
     }
 }

@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Models\Agent;
+use App\Models\User;
+use Hash;
 use App\Http\Requests\StoreAgentRequest;
 use App\Http\Requests\UpdateAgentRequest;
 
@@ -39,6 +41,8 @@ class AgentController extends Controller
     {
         $data  = $request->validated();
         $data['address'] = $request->address;
+        $user = User::create(['name' => $request->firstname ,'email' => $request->email ,'type' => 'agent','image' => '-' ,'password' => Hash::make($request->password)]);        
+        $data['user_id'] = $user->id;
         Agent::create($data);
         return redirect()->route('admin.agent.index')->with('success','Agent Create Success');
     }
@@ -86,8 +90,10 @@ class AgentController extends Controller
      * @param  \App\Models\Agent  $agent
      * @return \Illuminate\Http\Response
      */
+    
     public function destroy(Agent $agent)
     {
+        User::where('id',$agent->user_id)->delete();
         $agent->delete();
         return redirect()->route('admin.agent.index')->with('success','Agent delete success.');
     }

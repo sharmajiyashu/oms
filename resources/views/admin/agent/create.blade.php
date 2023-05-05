@@ -86,6 +86,18 @@
 
                                             <div class="col-md-6 col-12">
                                                 <div class="mb-1">
+                                                    <div class="d-flex justify-content-between">
+                                                        <label class="form-label" for="login-password">Password</label>
+                                                    </div>
+                                                    <div class="input-group input-group-merge form-password-toggle">
+                                                        <input type="password" class="form-control form-control-merge" id="password" name="password" tabindex="2" placeholder="" aria-describedby="login-password" value="{{ old('password') }}" />
+                                                        <span class="input-group-text cursor-pointer"><i data-feather="eye"></i></span>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            <div class="col-md-6 col-12">
+                                                <div class="mb-1">
                                                     <label class="form-label"  for="last-name-column">Status</label>
                                                     <select class="form-select" name="status" id="basicSelect">
                                                         <option value="Active">Active</option>

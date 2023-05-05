@@ -26,8 +26,9 @@ class StoreAgentRequest extends FormRequest
         return [
             'status' => 'required|in:Active,Inactive',
             'firstname'  => 'required',
+            'password'  => 'required',
             'lastname'  => 'required',
-            'email'  => 'required',
+            'email' => 'required|email|unique:users',
             'mobile'  => 'required',
         ];
     }
