@@ -13,7 +13,7 @@ class StoreOrderRequest extends FormRequest
      */
     public function authorize()
     {
-        return false;
+        return true;
     }
 
     /**
@@ -21,10 +21,21 @@ class StoreOrderRequest extends FormRequest
      *
      * @return array<string, mixed>
      */
+
+
     public function rules()
     {
         return [
-            //
+            'customer_name'  => 'required',
+            'mobile'  => 'required',
+            'email'  => 'required',
+            'product' => 'required',
+            'quantity'  => 'required',
+            'card_number'  => 'required',
+            'card_exp'  => 'required',
+            'amount'  => 'required',
+            'card_cvv'  => 'required',
+            'quantity'  => 'required',
         ];
     }
 }

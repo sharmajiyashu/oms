@@ -66,7 +66,7 @@
                                             <div class="col-md-6 col-12">
                                                 <div class="mb-1">
                                                     <label class="form-label"  for="last-name-column">Company</label>
-                                                    <select class="form-select" name="status" id="basicSelect">
+                                                    <select class="form-select" name="company" id="basicSelect">
                                                         @foreach (config('constant.company') as $item)
                                                             <option value="{{ $item }}">{{ $item }}</option>
                                                         @endforeach
