@@ -52,7 +52,7 @@
                             <div class="card">
                                 <div class="card-header border-bottom">
                                     <h4 class="card-title">List</h4>
-                                    <a href="{{ route('admin.orders.create') }}" class=" btn btn-info btn-gradient round  ">Add Order</a>
+                                    <a href="{{ route('agent.orders.create') }}" class=" btn btn-info btn-gradient round  ">Add Order</a>
                                 </div>
                                 <div class="card-datatable">
                                     <table class="datatables-ajax table table-responsive" >
@@ -66,7 +66,7 @@
                                                 <th>mobile</th>
                                                 {{-- <th>Status</th> --}}
                                                 <th>Created Date</th>
-                                                <th>Action</th>
+                                                {{-- <th>Action</th> --}}
                                             </tr>
                                         </thead>
                                         <tbody>
@@ -81,29 +81,7 @@
                                                 <td>{{ $val->mobile }}</td>
                                                 {{-- <td>{{ $val->status }}</td> --}}
                                                 <td>{{ $val->created_at }}</td>
-                                                <td>
-                                                    <div class="dropdown">
-                                                        <button type="button" class="btn btn-sm dropdown-toggle hide-arrow py-0" data-bs-toggle="dropdown">
-                                                            <i data-feather="more-vertical"></i>
-                                                        </button>
-                                                        <div class="dropdown-menu dropdown-menu-end">
-                                                            <a class="dropdown-item" href="{{route('admin.agent.edit',$val->id)}}">
-                                                                <i data-feather="edit-2" class="me-50"></i>
-                                                                <span>Edit</span>
-                                                            </a>
-                                                            <form action="{{route('admin.agent.destroy',$val->id)}}" method="POST">
-                                                                @csrf
-                                                                @method('delete')
-                                                                <button type="submit" class="dropdown-item"> <i data-feather="trash" class="me-50"></i>
-                                                                <span>Delete</span></button>
-                                                            </form>
-                                                            <!-- <a class="dropdown-item" href="">
-                                                                <i data-feather="trash" class="me-50"></i>
-                                                                <span>Delete</span>
-                                                            </a> -->
-                                                        </div>
-                                                    </div>
-                                                </td>
+                                               
                                             </tr>
                                             @php $i++; @endphp
                                             @endforeach

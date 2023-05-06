@@ -17,8 +17,19 @@ class OrderController extends Controller
      */
     public function index()
     {
-        $orders = Order::orderBy('id','desc')->get();
-        return view('admin.orders.index',compact('orders'));
+
+        if(Auth::check()){
+            if(Auth::user()->type == 'admin'){
+                $orders = Order::orderBy('id','desc')->get();
+                return view('admin.orders.index',compact('orders'));
+            }else{
+                $orders = Order::orderBy('id','desc')->where('user_id',Auth::user()->id)->get();
+                return view('admin.agent.orders.index',compact('orders'));
+            }
+        }else{
+            return redirect('/')->with('error','login now');
+        }
+        
     }
 
     /**
@@ -30,7 +41,12 @@ class OrderController extends Controller
     {
         $cities = DB::table('cities')->get();
         $states = DB::table('states')->get();
-        return view('admin.orders.create',compact('cities','states'));
+        if(Auth::user()->type == 'admin'){
+            return view('admin.orders.create',compact('cities','states'));
+        }else{
+            return view('admin.agent.orders.create',compact('cities','states'));
+        }
+        
     }
 
     /**

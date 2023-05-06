@@ -7,7 +7,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Controllers\OrderController;
 
 
-Route::get('login', function () {
+Route::get('loginin', function () {
     return view('admin.login2');
 })->name('login');
 
