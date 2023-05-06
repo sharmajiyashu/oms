@@ -8,21 +8,25 @@ use App\Http\Controllers\OrderController;
 
 
 Route::get('login', function () {
-    return view('admin.login');
+    return view('admin.login2');
 })->name('login');
 
 Route::get('/', [Controller::class, 'dashboard'])->name('/');
 
-Route::group(['prefix' => 'admin', 'as' => 'admin.'], function () {
+
+Route::get('log-in', function() { return view('admin.login'); })->name('admin.login');
+
+Route::group(['prefix' => 'admin', 'as' => 'admin.','middleware' => 'AdminAuth'], function () {
     Route::resource('agent',AgentController::class);
     Route::resource('orders',OrderController::class);
     Route::get('/', function () {
         return view('admin.dashboard');
     })->name('dashboard');
-
 });
 
-Route::group(['prefix' => 'agent', 'as' => 'agent.'], function () {
+Route::get('login', function() { return view('admin.login2'); })->name('agent.login');
+
+Route::group(['prefix' => 'agent', 'as' => 'agent.' ,'middleware'=>'AgentAuth'], function () {
     Route::get('/', function () {
         return view('admin.dashboard');
     })->name('dashboard');
