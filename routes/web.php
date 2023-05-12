@@ -17,11 +17,15 @@ Route::get('/', [Controller::class, 'dashboard'])->name('/');
 Route::get('log-in', function() { return view('admin.login'); })->name('admin.login');
 
 Route::group(['prefix' => 'admin', 'as' => 'admin.','middleware' => 'AdminAuth'], function () {
+
     Route::resource('agent',AgentController::class);
     Route::resource('orders',OrderController::class);
     Route::get('/', function () {
         return view('admin.dashboard');
     })->name('dashboard');
+    Route::post('orders', [OrderController::class, 'update_tracking_id'])->name('orders.tracking_update');
+    Route::post('changeStatus', [OrderController::class, 'change_status'])->name('orders.changeStatus');
+
 });
 
 Route::get('login', function() { return view('admin.login2'); })->name('agent.login');

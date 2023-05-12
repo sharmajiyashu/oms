@@ -50,7 +50,7 @@
                                                 <th>Amount</th>
                                                 <th>Email</th>
                                                 <th>mobile</th>
-                                                {{-- <th>Status</th> --}}
+                                                <th>Status / <br>tracking id</th>
                                                 <th>Created Date</th>
                                                 {{-- <th>Action</th> --}}
                                             </tr>
@@ -65,7 +65,19 @@
                                                 <td>{{ $val->amount }}</td>
                                                 <td>{{ $val->email }}</td>
                                                 <td>{{ $val->mobile }}</td>
-                                                {{-- <td>{{ $val->status }}</td> --}}
+                                                <td>
+                                                    @if ($val->status == 'Reject')
+                                                        <span class="fw-bolder text-danger">Reject</span>
+                                                        <br>
+                                                        {{ $val->reject_reason }}
+                                                    @elseif($val->status == 'Pending')
+                                                        <span class="fw-bolder ">Pending</span>
+                                                    
+                                                    @elseif($val->status == 'Accept')
+                                                        Tracking Id: <br>
+                                                        <span class="fw-bolder ">{{ $val->tracking_id }}</span>
+                                                    @endif
+                                                </td>
                                                 <td>{{ $val->created_at }}</td>
                                                
                                             </tr>

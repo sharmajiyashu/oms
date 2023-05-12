@@ -308,7 +308,7 @@
                                             <div class="col-md-12 col-12">
                                                 <div class="mb-1">
                                                     <label class="form-label" for="exampleFormControlTextarea1">Comment</label>
-                                                    <textarea class="form-control" name="sh_address" id="exampleFormControlTextarea1" rows="2" placeholder="Comment">{{ old('sh_address') }}</textarea>
+                                                    <textarea class="form-control" name="comment" id="exampleFormControlTextarea1" rows="2" placeholder="Comment">{{ old('sh_address') }}</textarea>
                                                 </div>
                                             </div>
                                             
