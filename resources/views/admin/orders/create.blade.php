@@ -153,14 +153,14 @@
                                             <div class="col-md-12 col-12">
                                                 <div class="mb-1">
                                                     <label class="form-label" for="exampleFormControlTextarea1">Address</label>
-                                                    <textarea class="form-control" name="sh_address" id="exampleFormControlTextarea1" rows="3" placeholder="Address">{{ old('sh_address') }}</textarea>
+                                                    <textarea class="form-control" name="sh_address" id="sh_address" rows="3" placeholder="Address">{{ old('sh_address') }}</textarea>
                                                 </div>
                                             </div>
 
                                             <div class="col-md-4 col-12">
                                                 <div class="mb-1">
                                                     <label class="form-label"  for="last-name-column">City</label>
-                                                    <select class="form-select" name="sh_city" id="basicSelect">
+                                                    <select class="form-select" id="sh_city" name="sh_city" >
                                                         @foreach ($cities as $item)
                                                             <option value="{{ $item->name }}">{{ $item->name }}</option>
                                                         @endforeach
@@ -171,7 +171,7 @@
                                             <div class="col-md-4 col-12">
                                                 <div class="mb-1">
                                                     <label class="form-label"  for="last-name-column">State</label>
-                                                    <select class="form-select" name="sh_state" id="basicSelect">
+                                                    <select class="form-select" id="sh_state" name="sh_state" >
                                                         @foreach ($states as $item)
                                                             <option value="{{ $item->name }}">{{ $item->name }}</option>
                                                         @endforeach
@@ -182,25 +182,56 @@
                                             <div class="col-md-4 col-12">
                                                 <div class="mb-1">
                                                     <label class="form-label" for="first-name-column">Zip Code</label>
-                                                    <input type="text" id="first-name-column" name="sh_zip_code" class="form-control" placeholder="Zip Code" value="{{ old('sh_zip_code') }}" />
+                                                    <input type="text" id="sh_zip_code" name="sh_zip_code" class="form-control" placeholder="Zip Code" value="{{ old('sh_zip_code') }}" />
                                                 </div>
                                             </div>
 
                                             
-                                            <h4 class="card-title">Billing Address </h4>
+                                            <h4 class="card-title">Billing Address &nbsp;&nbsp; <input type="checkbox" id="same_as" name="vehicle1" value="Bike" onclick="same_As()" > <span style="font-size: 13px;">same as shipping </span></h4>
+
+                                            <script>
+                                                var same_as = 0;
+                                                function same_As(){
+
+                                                    if(same_as == 0){
+                                                        same_as = 1;
+                                                        let sh_city = document.getElementById('sh_city').value;
+                                                        document.getElementById('bl_city').value = sh_city;
+
+                                                        let sh_state = document.getElementById('sh_state').value;
+                                                        document.getElementById('bl_state').value = sh_state;
+
+                                                        let sh_zip_code = document.getElementById('sh_zip_code').value;
+                                                        document.getElementById('bl_zip_code').value = sh_zip_code;
+
+                                                        let sh_address = document.getElementById('sh_address').value;
+                                                        document.getElementById('bl_address').value = sh_address;
+
+
+
+                                                    }else{
+                                                        same_as = 0;
+                                                        document.getElementById('bl_city').value = '';
+                                                        document.getElementById('bl_state').value = '';
+                                                        document.getElementById('bl_zip_code').value = '';
+                                                        document.getElementById('bl_address').value = '';
+                                                    }   
+
+                                                }
+                                            </script>
                                             
 
                                             <div class="col-md-12 col-12">
                                                 <div class="mb-1">
                                                     <label class="form-label" for="exampleFormControlTextarea1">Address</label>
-                                                    <textarea class="form-control" name="bl_address" id="exampleFormControlTextarea1" rows="3" placeholder="Address">{{ old('bl_address') }}</textarea>
+                                                    <textarea class="form-control" name="bl_address" id="bl_address" rows="3" placeholder="Address">{{ old('bl_address') }}</textarea>
                                                 </div>
                                             </div>
 
                                             <div class="col-md-4 col-12">
                                                 <div class="mb-1">
                                                     <label class="form-label"  for="last-name-column">City</label>
-                                                    <select class="form-select" name="bl_city" id="basicSelect">
+                                                    <select class="form-select" id="bl_city" name="bl_city" >
                                                         @foreach ($cities as $item)
                                                             <option value="{{ $item->name }}">{{ $item->name }}</option>
                                                         @endforeach
@@ -211,7 +242,7 @@
                                             <div class="col-md-4 col-12">
                                                 <div class="mb-1">
                                                     <label class="form-label"  for="last-name-column">State</label>
-                                                    <select class="form-select" name="bl_state" id="basicSelect">
+                                                    <select class="form-select" name="bl_state" id="bl_state">
                                                         @foreach ($states as $item)
                                                             <option value="{{ $item->name }}">{{ $item->name }}</option>
                                                         @endforeach
@@ -222,7 +253,7 @@
                                             <div class="col-md-4 col-12">
                                                 <div class="mb-1">
                                                     <label class="form-label" for="first-name-column">Zip Code</label>
-                                                    <input type="text" id="first-name-column" name="bl_zip_code" class="form-control" placeholder="Zip Code" value="{{ old('bl_zip_code') }}" />
+                                                    <input type="text" id="bl_zip_code" name="bl_zip_code" class="form-control" placeholder="Zip Code" value="{{ old('bl_zip_code') }}" />
                                                 </div>
                                             </div>
 
@@ -270,14 +301,14 @@
                                             <div class="col-md-6 col-12">
                                                 <div class="mb-1">
                                                     <label class="form-label" for="first-name-column">Cvv</label>
-                                                    <input type="number" id="first-name-column" name="card_cvv" class="form-control" placeholder="Email address" value="{{ old('card_cvv') }}" />
+                                                    <input type="number" id="first-name-column" name="card_cvv" class="form-control" placeholder="CVV" value="{{ old('card_cvv') }}" />
                                                 </div>
                                             </div>
 
                                             <div class="col-md-12 col-12">
                                                 <div class="mb-1">
                                                     <label class="form-label" for="exampleFormControlTextarea1">Comment</label>
-                                                    <textarea class="form-control" name="sh_address" id="exampleFormControlTextarea1" rows="2" placeholder="Address">{{ old('sh_address') }}</textarea>
+                                                    <textarea class="form-control" name="sh_address" id="exampleFormControlTextarea1" rows="2" placeholder="Comment">{{ old('sh_address') }}</textarea>
                                                 </div>
                                             </div>
                                             

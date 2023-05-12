@@ -54,29 +54,60 @@
                                     <form class="form" action="{{ route('agent.orders.store') }}" method="POST">
                                     {{ csrf_field() }}
                                     
-                                        <div class="row">
+                                    <div class="row">
 
-                                            <div class="col-md-6 col-12">
-                                                <div class="mb-1">
-                                                    <label class="form-label" for="first-name-column">Customer Name</label>
-                                                    <input type="text" id="first-name-column" name="customer_name" class="form-control" placeholder="Customer Name" value="{{ old('customer_name') }}" />
+                                        <div class="col-md-6 col-12">
+                                            <div class="mb-1">
+                                                <label class="form-label" for="first-name-column">Customer Name</label>
+                                                <input type="text" id="first-name-column" name="customer_name" class="form-control" placeholder="Customer Name" value="{{ old('customer_name') }}" />
+                                            </div>
+                                        </div>
+
+                                        <div class="col-md-6 col-12">
+                                            <div class="mb-1">
+                                                <label class="form-label"  for="last-name-column">Company</label>
+                                                <select class="form-select" name="company" id="basicSelect">
+                                                    @foreach (config('constant.company') as $item)
+                                                        <option value="{{ $item }}">{{ $item }}</option>
+                                                    @endforeach
+                                                </select>
+                                            </div>
+                                        </div>
+
+                                        <div id="append_product" class="col-md-12">
+
+                                            <div class="row">   
+                                                <div class="col-md-6 col-12">
+                                                    <div class="mb-1">
+                                                        <label class="form-label"  for="last-name-column">Product</label>
+                                                        <select class="form-select" name="product[]" id="basicSelect">
+                                                            @foreach (config('constant.products') as $item)
+                                                                <option value="{{ $item }}">{{ $item }}</option>
+                                                            @endforeach
+                                                        </select>
+                                                    </div>
+                                                </div>
+    
+                                                <div class="col-md-6 col-12">
+                                                    <div class="mb-1">
+                                                        <label class="form-label" for="first-name-column">Quantity</label>
+                                                        <input type="number" id="first-name-column" name="quantity[]" class="form-control" placeholder="Customer Name" value="{{ old('customer_name') }}" />
+                                                    </div>
                                                 </div>
                                             </div>
+                                        </div>
 
-                                            <div class="col-md-6 col-12">
-                                                <div class="mb-1">
-                                                    <label class="form-label"  for="last-name-column">Company</label>
-                                                    <select class="form-select" name="company" id="basicSelect">
-                                                        @foreach (config('constant.company') as $item)
-                                                            <option value="{{ $item }}">{{ $item }}</option>
-                                                        @endforeach
-                                                    </select>
-                                                </div>
-                                            </div>
+                                        <div>
+                                            <div class="mb-1">
+                                                <a href="#" class="" onclick="Append_product()">Add More Product</a>
+                                            </div>    
+                                        </div>
 
-                                            <div id="append_product" class="col-md-12">
 
-                                                <div class="row">   
+                                        <script>
+                                            function Append_product(){
+                                                var div = document.getElementById('append_product');
+                                                div.innerHTML += `<div class="row">   
                                                     <div class="col-md-6 col-12">
                                                         <div class="mb-1">
                                                             <label class="form-label"  for="last-name-column">Product</label>
@@ -94,199 +125,199 @@
                                                             <input type="number" id="first-name-column" name="quantity[]" class="form-control" placeholder="Customer Name" value="{{ old('customer_name') }}" />
                                                         </div>
                                                     </div>
-                                                </div>
+                                                </div>`;
+                                            }
+                                        </script>
+                                        
+                                        <div class="col-md-6 col-12">
+                                            <div class="mb-1">
+                                                <label class="form-label" for="exampleFormControlTextarea1">Amount</label>
+                                                <input type="number" id="first-name-column" name="amount" class="form-control" placeholder="Amount" value="{{ old('amount') }}" />
                                             </div>
-
-                                            <div>
-                                                <div class="mb-1">
-                                                    <a href="#" class="" onclick="Append_product()">Add More Product</a>
-                                                </div>    
-                                            </div>
-
-
-                                            <script>
-                                                function Append_product(){
-                                                    var div = document.getElementById('append_product');
-                                                    div.innerHTML += `<div class="row">   
-                                                        <div class="col-md-6 col-12">
-                                                            <div class="mb-1">
-                                                                <label class="form-label"  for="last-name-column">Product</label>
-                                                                <select class="form-select" name="product[]" id="basicSelect">
-                                                                    @foreach (config('constant.products') as $item)
-                                                                        <option value="{{ $item }}">{{ $item }}</option>
-                                                                    @endforeach
-                                                                </select>
-                                                            </div>
-                                                        </div>
-            
-                                                        <div class="col-md-6 col-12">
-                                                            <div class="mb-1">
-                                                                <label class="form-label" for="first-name-column">Quantity</label>
-                                                                <input type="number" id="first-name-column" name="quantity[]" class="form-control" placeholder="Customer Name" value="{{ old('customer_name') }}" />
-                                                            </div>
-                                                        </div>
-                                                    </div>`;
-                                                }
-                                            </script>
-                                            
-                                            <div class="col-md-6 col-12">
-                                                <div class="mb-1">
-                                                    <label class="form-label" for="exampleFormControlTextarea1">Amount</label>
-                                                    <input type="number" id="first-name-column" name="amount" class="form-control" placeholder="Amount" value="{{ old('amount') }}" />
-                                                </div>
-                                            </div>
-
-                                            <div class="col-md-6 col-12">
-                                                <div class="mb-1">
-                                                    <label class="form-label"  for="last-name-column">   Delivery Method</label>
-                                                    <select class="form-select" name="delivery_method" id="basicSelect">
-                                                        <option value="Express">Express</option>
-                                                        <option value="Normal">Normal</option>
-                                                    </select>
-                                                </div>
-                                            </div>
-
-
-                                            <h4 class="card-title">Shipping Details </h4>
-                                            
-
-                                            <div class="col-md-12 col-12">
-                                                <div class="mb-1">
-                                                    <label class="form-label" for="exampleFormControlTextarea1">Address</label>
-                                                    <textarea class="form-control" name="sh_address" id="exampleFormControlTextarea1" rows="3" placeholder="Address">{{ old('sh_address') }}</textarea>
-                                                </div>
-                                            </div>
-
-                                            <div class="col-md-4 col-12">
-                                                <div class="mb-1">
-                                                    <label class="form-label"  for="last-name-column">City</label>
-                                                    <select class="form-select" name="sh_city" id="basicSelect">
-                                                        @foreach ($cities as $item)
-                                                            <option value="{{ $item->name }}">{{ $item->name }}</option>
-                                                        @endforeach
-                                                    </select>
-                                                </div>
-                                            </div>
-
-                                            <div class="col-md-4 col-12">
-                                                <div class="mb-1">
-                                                    <label class="form-label"  for="last-name-column">State</label>
-                                                    <select class="form-select" name="sh_state" id="basicSelect">
-                                                        @foreach ($states as $item)
-                                                            <option value="{{ $item->name }}">{{ $item->name }}</option>
-                                                        @endforeach
-                                                    </select>
-                                                </div>
-                                            </div>
-                                            
-                                            <div class="col-md-4 col-12">
-                                                <div class="mb-1">
-                                                    <label class="form-label" for="first-name-column">Zip Code</label>
-                                                    <input type="text" id="first-name-column" name="sh_zip_code" class="form-control" placeholder="Zip Code" value="{{ old('sh_zip_code') }}" />
-                                                </div>
-                                            </div>
-
-                                            
-                                            <h4 class="card-title">Billing Address </h4>
-                                            
-
-                                            <div class="col-md-12 col-12">
-                                                <div class="mb-1">
-                                                    <label class="form-label" for="exampleFormControlTextarea1">Address</label>
-                                                    <textarea class="form-control" name="bl_address" id="exampleFormControlTextarea1" rows="3" placeholder="Address">{{ old('bl_address') }}</textarea>
-                                                </div>
-                                            </div>
-
-                                            <div class="col-md-4 col-12">
-                                                <div class="mb-1">
-                                                    <label class="form-label"  for="last-name-column">City</label>
-                                                    <select class="form-select" name="bl_city" id="basicSelect">
-                                                        @foreach ($cities as $item)
-                                                            <option value="{{ $item->name }}">{{ $item->name }}</option>
-                                                        @endforeach
-                                                    </select>
-                                                </div>
-                                            </div>
-
-                                            <div class="col-md-4 col-12">
-                                                <div class="mb-1">
-                                                    <label class="form-label"  for="last-name-column">State</label>
-                                                    <select class="form-select" name="bl_state" id="basicSelect">
-                                                        @foreach ($states as $item)
-                                                            <option value="{{ $item->name }}">{{ $item->name }}</option>
-                                                        @endforeach
-                                                    </select>
-                                                </div>
-                                            </div>
-                                            
-                                            <div class="col-md-4 col-12">
-                                                <div class="mb-1">
-                                                    <label class="form-label" for="first-name-column">Zip Code</label>
-                                                    <input type="text" id="first-name-column" name="bl_zip_code" class="form-control" placeholder="Zip Code" value="{{ old('bl_zip_code') }}" />
-                                                </div>
-                                            </div>
-
-                                            <h4 class="card-title">   Contact info </h4>
-                                            
-
-                                            <div class="col-md-4 col-12">
-                                                <div class="mb-1">
-                                                    <label class="form-label" for="first-name-column">Mobile</label>
-                                                    <input type="text" id="first-name-column" name="mobile" class="form-control" placeholder="Mobile" value="{{ old('mobile') }}" />
-                                                </div>
-                                            </div>
-                                            
-                                            <div class="col-md-4 col-12">
-                                                <div class="mb-1">
-                                                    <label class="form-label" for="first-name-column">Cellphone</label>
-                                                    <input type="text" id="first-name-column" name="cellphone" class="form-control" placeholder="Cellphone" value="{{ old('cellphone') }}" />
-                                                </div>
-                                            </div>
-
-                                            <div class="col-md-4 col-12">
-                                                <div class="mb-1">
-                                                    <label class="form-label" for="first-name-column">Email address</label>
-                                                    <input type="text" id="first-name-column" name="email" class="form-control" placeholder="Email" value="{{ old('email') }}" />
-                                                </div>
-                                            </div>
-
-                                            <h4> Payment Detail</h4>
-                                            
-
-                                            <div class="col-md-12 col-12">
-                                                <div class="mb-1">
-                                                    <label class="form-label" for="first-name-column">Card Number</label>
-                                                    <input type="text" id="first-name-column" name="card_number" class="form-control" placeholder="Card Number" value="{{ old('card_number') }}" />
-                                                </div>
-                                            </div>
-
-                                            <div class="col-md-6 col-12">
-                                                <div class="mb-1">
-                                                    <label class="form-label" for="first-name-column">Exp</label>
-                                                    <input type="date" id="first-name-column" name="card_exp" class="form-control" placeholder="Card Exp" value="{{ old('card_exp') }}" />
-                                                </div>
-                                            </div>
-
-                                            <div class="col-md-6 col-12">
-                                                <div class="mb-1">
-                                                    <label class="form-label" for="first-name-column">Cvv</label>
-                                                    <input type="number" id="first-name-column" name="card_cvv" class="form-control" placeholder="Email address" value="{{ old('card_cvv') }}" />
-                                                </div>
-                                            </div>
-
-                                            <div class="col-md-12 col-12">
-                                                <div class="mb-1">
-                                                    <label class="form-label" for="exampleFormControlTextarea1">Comment</label>
-                                                    <textarea class="form-control" name="sh_address" id="exampleFormControlTextarea1" rows="2" placeholder="Address">{{ old('sh_address') }}</textarea>
-                                                </div>
-                                            </div>
-                                            
-                                            <div class="col-12">
-                                                <button type="submit" class="btn btn-primary me-1">Submit</button>
-                                                <button type="reset" class="btn btn-outline-secondary">Reset</button>
-                                            </div>
-                                            
                                         </div>
+
+                                        <div class="col-md-6 col-12">
+                                            <div class="mb-1">
+                                                <label class="form-label"  for="last-name-column">   Delivery Method</label>
+                                                <select class="form-select" name="delivery_method" id="basicSelect">
+                                                    <option value="Express">Express</option>
+                                                    <option value="Normal">Normal</option>
+                                                </select>
+                                            </div>
+                                        </div>
+
+
+                                        <h4 class="card-title">Shipping Details </h4>
+                                        
+
+                                        <div class="col-md-12 col-12">
+                                            <div class="mb-1">
+                                                <label class="form-label" for="exampleFormControlTextarea1">Address</label>
+                                                <textarea class="form-control" name="sh_address" id="sh_address" rows="3" placeholder="Address">{{ old('sh_address') }}</textarea>
+                                            </div>
+                                        </div>
+
+                                        <div class="col-md-4 col-12">
+                                            <div class="mb-1">
+                                                <label class="form-label"  for="last-name-column">City</label>
+                                                <select class="form-select" id="sh_city" name="sh_city" >
+                                                    @foreach ($cities as $item)
+                                                        <option value="{{ $item->name }}">{{ $item->name }}</option>
+                                                    @endforeach
+                                                </select>
+                                            </div>
+                                        </div>
+
+                                        <div class="col-md-4 col-12">
+                                            <div class="mb-1">
+                                                <label class="form-label"  for="last-name-column">State</label>
+                                                <select class="form-select" id="sh_state" name="sh_state" >
+                                                    @foreach ($states as $item)
+                                                        <option value="{{ $item->name }}">{{ $item->name }}</option>
+                                                    @endforeach
+                                                </select>
+                                            </div>
+                                        </div>
+                                        
+                                        <div class="col-md-4 col-12">
+                                            <div class="mb-1">
+                                                <label class="form-label" for="first-name-column">Zip Code</label>
+                                                <input type="text" id="sh_zip_code" name="sh_zip_code" class="form-control" placeholder="Zip Code" value="{{ old('sh_zip_code') }}" />
+                                            </div>
+                                        </div>
+
+                                        
+                                        <h4 class="card-title">Billing Address &nbsp;&nbsp; <input type="checkbox" id="same_as" name="vehicle1" value="Bike" onclick="same_As()" > <span style="font-size: 13px;">same as shipping </span></h4>
+
+                                        <script>
+                                            var same_as = 0;
+                                            function same_As(){
+
+                                                if(same_as == 0){
+                                                    same_as = 1;
+                                                    let sh_city = document.getElementById('sh_city').value;
+                                                    document.getElementById('bl_city').value = sh_city;
+
+                                                    let sh_state = document.getElementById('sh_state').value;
+                                                    document.getElementById('bl_state').value = sh_state;
+
+                                                    let sh_zip_code = document.getElementById('sh_zip_code').value;
+                                                    document.getElementById('bl_zip_code').value = sh_zip_code;
+
+                                                    let sh_address = document.getElementById('sh_address').value;
+                                                    document.getElementById('bl_address').value = sh_address;
+
+
+
+                                                }else{
+                                                    same_as = 0;
+                                                    document.getElementById('bl_city').value = '';
+                                                    document.getElementById('bl_state').value = '';
+                                                    document.getElementById('bl_zip_code').value = '';
+                                                    document.getElementById('bl_address').value = '';
+                                                }   
+
+                                            }
+                                        </script>
+                                        
+
+                                        <div class="col-md-12 col-12">
+                                            <div class="mb-1">
+                                                <label class="form-label" for="exampleFormControlTextarea1">Address</label>
+                                                <textarea class="form-control" name="bl_address" id="bl_address" rows="3" placeholder="Address">{{ old('bl_address') }}</textarea>
+                                            </div>
+                                        </div>
+
+                                        <div class="col-md-4 col-12">
+                                            <div class="mb-1">
+                                                <label class="form-label"  for="last-name-column">City</label>
+                                                <select class="form-select" id="bl_city" name="bl_city" >
+                                                    @foreach ($cities as $item)
+                                                        <option value="{{ $item->name }}">{{ $item->name }}</option>
+                                                    @endforeach
+                                                </select>
+                                            </div>
+                                        </div>
+
+                                        <div class="col-md-4 col-12">
+                                            <div class="mb-1">
+                                                <label class="form-label"  for="last-name-column">State</label>
+                                                <select class="form-select" name="bl_state" id="bl_state">
+                                                    @foreach ($states as $item)
+                                                        <option value="{{ $item->name }}">{{ $item->name }}</option>
+                                                    @endforeach
+                                                </select>
+                                            </div>
+                                        </div>
+                                        
+                                        <div class="col-md-4 col-12">
+                                            <div class="mb-1">
+                                                <label class="form-label" for="first-name-column">Zip Code</label>
+                                                <input type="text" id="bl_zip_code" name="bl_zip_code" class="form-control" placeholder="Zip Code" value="{{ old('bl_zip_code') }}" />
+                                            </div>
+                                        </div>
+
+                                        <h4 class="card-title">   Contact info </h4>
+                                        
+
+                                        <div class="col-md-4 col-12">
+                                            <div class="mb-1">
+                                                <label class="form-label" for="first-name-column">Mobile</label>
+                                                <input type="text" id="first-name-column" name="mobile" class="form-control" placeholder="Mobile" value="{{ old('mobile') }}" />
+                                            </div>
+                                        </div>
+                                        
+                                        <div class="col-md-4 col-12">
+                                            <div class="mb-1">
+                                                <label class="form-label" for="first-name-column">Cellphone</label>
+                                                <input type="text" id="first-name-column" name="cellphone" class="form-control" placeholder="Cellphone" value="{{ old('cellphone') }}" />
+                                            </div>
+                                        </div>
+
+                                        <div class="col-md-4 col-12">
+                                            <div class="mb-1">
+                                                <label class="form-label" for="first-name-column">Email address</label>
+                                                <input type="text" id="first-name-column" name="email" class="form-control" placeholder="Email" value="{{ old('email') }}" />
+                                            </div>
+                                        </div>
+
+                                        <h4> Payment Detail</h4>
+                                        
+
+                                        <div class="col-md-12 col-12">
+                                            <div class="mb-1">
+                                                <label class="form-label" for="first-name-column">Card Number</label>
+                                                <input type="text" id="first-name-column" name="card_number" class="form-control" placeholder="Card Number" value="{{ old('card_number') }}" />
+                                            </div>
+                                        </div>
+
+                                        <div class="col-md-6 col-12">
+                                            <div class="mb-1">
+                                                <label class="form-label" for="first-name-column">Exp</label>
+                                                <input type="date" id="first-name-column" name="card_exp" class="form-control" placeholder="Card Exp" value="{{ old('card_exp') }}" />
+                                            </div>
+                                        </div>
+
+                                        <div class="col-md-6 col-12">
+                                            <div class="mb-1">
+                                                <label class="form-label" for="first-name-column">Cvv</label>
+                                                <input type="number" id="first-name-column" name="card_cvv" class="form-control" placeholder="CVV" value="{{ old('card_cvv') }}" />
+                                            </div>
+                                        </div>
+
+                                        <div class="col-md-12 col-12">
+                                            <div class="mb-1">
+                                                <label class="form-label" for="exampleFormControlTextarea1">Comment</label>
+                                                <textarea class="form-control" name="sh_address" id="exampleFormControlTextarea1" rows="2" placeholder="Comment">{{ old('sh_address') }}</textarea>
+                                            </div>
+                                        </div>
+                                        
+                                        <div class="col-12">
+                                            <button type="submit" class="btn btn-primary me-1">Submit</button>
+                                            <button type="reset" class="btn btn-outline-secondary">Reset</button>
+                                        </div>
+                                        
+                                    </div>
                                     </form>
                                 </div>
 

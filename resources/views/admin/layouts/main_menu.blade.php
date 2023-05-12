@@ -11,22 +11,41 @@
     transition: 300ms ease all, background 0s;
 }
 </style>
-<div class="main-menu menu-fixed menu-dark menu-accordion menu-shadow" data-scroll-to-active="true">
+
+@if (Auth::user()->type == 'agent')
+    <style>
+        .semi-dark-layout .main-menu-content .navigation-main .nav-item .menu-content li:not(.active) a {
+            background-color: rgb(14 66 134);
+        }
+        .semi-dark-layout .main-menu-content .navigation-main .nav-item .menu-content {
+            background-color:rgb(14 66 134);
+        }
+    </style>
+@endif
+<div class="main-menu menu-fixed menu-dark menu-accordion menu-shadow" data-scroll-to-active="true"
+    @if (Auth::user()->type == 'agent')
+        style="background: rgb(14 66 134);"
+    @endif
+        >
         <div class="navbar-header">
-            <ul class="nav navbar-nav flex-row">
+            <ul class="nav navbar-nav flex-row" >
                 <li class="nav-item me-auto"><a class="navbar-brand" href="{{url('/')}}">
                     
                 <span class="brand-logo" style="">
                             <img src="{{asset('public/bidnanza_logo.png')}}" alt="" style="width: 175px;">
                     </span>
-                        <!-- <h2 class="brand-text" style="color:#29a6ca">Admin</h2> -->
+                         {{-- <h2 class="brand-text" style="color:#29a6ca">Admin</h2> --}}
                     </a></li>
                 <li class="nav-item nav-toggle"><a class="nav-link modern-nav-toggle pe-0" data-bs-toggle="collapse"><i class="d-block d-xl-none text-primary toggle-icon font-medium-4" data-feather="x"></i><i class="d-none d-xl-block collapse-toggle-icon font-medium-4  text-primary" data-feather="disc" data-ticon="disc"></i></a></li>
             </ul>
         </div>
         <div class="shadow-bottom"></div>
         <div class="main-menu-content">
-            <ul class="navigation navigation-main" id="main-menu-navigation" data-menu="menu-navigation">
+            <ul class="navigation navigation-main" id="main-menu-navigation" data-menu="menu-navigation" 
+                @if (Auth::user()->type == 'agent')
+                    style="background: rgb(14 66 134);"
+                @endif
+            >
 
                 <li class=" nav-item"><a class="d-flex align-items-center" href="{{url('admin')}}"><i data-feather="home"></i><span class="menu-title text-truncate" data-i18n="Dashboards">Dashboards</span><span class="badge badge-light-warning rounded-pill ms-auto me-1"></span></a>
                     

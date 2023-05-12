@@ -76,7 +76,13 @@ class OrderController extends Controller
         $data['order_id'] = $this->generate_orderid();
         $data['user_id'] = Auth::user()->id;
         Order::create($data);
-        return redirect()->route('admin.orders.index')->with('success','Order Save success');
+
+        if(Auth::user()->type == 'admin'){
+            return redirect()->route('admin.orders.index')->with('success','Order Save success');
+        }else{
+            return redirect()->route('agent.orders.index')->with('success','Order Save success');
+        }
+        
     }
 
     /**
