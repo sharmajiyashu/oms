@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Order;
+use App\Models\FollowUp;
 use App\Http\Requests\StoreOrderRequest;
 use App\Http\Requests\UpdateOrderRequest;
 use Illuminate\Http\Request;
@@ -76,10 +77,10 @@ class OrderController extends Controller
         $data['comment'] = $request->comment;
         $data['order_id'] = $this->generate_orderid();
         $data['user_id'] = Auth::user()->id;
-        Order::create($data);
+        $order = Order::create($data);
 
         if(!empty($request->next_follow_date)){
-            
+            FollowUp::create(['user_id' => Auth::user()->id ,'order_id' => $order->id ,'type' => 'New' ,'date' => $request->next_follow_date ,'note' => $request->next_follow_comment]);
         }
 
         if(Auth::user()->type == 'admin'){

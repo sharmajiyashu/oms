@@ -94,6 +94,13 @@
                             </li>
                         </ul>
                     </li>
+                    @php
+                        $count = DB::table('follow_ups')->where('user_id',Auth::user()->id)->where('date',date('Y-m-d'))->where('status','unseen')->count();
+                    @endphp
+
+                    <li class=" nav-item"><a class="d-flex align-items-center" href="{{ route('agent.follow-up.index')}}"><i data-feather="home"></i><span class="menu-title text-truncate" data-i18n="Dashboards">Follow Up</span><span class="badge badge-light-warning rounded-pill ms-auto me-1">{{ $count }}</span></a>
+                    
+                    </li>
                     
                 @endif
 

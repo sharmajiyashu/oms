@@ -4,6 +4,13 @@
 @extends('admin.layouts.app')
 
 @section('content')
+<style>
+    h4{
+        background: #488eca;
+    color: white;
+    padding: 1%;
+    },
+</style>
 
  <!-- BEGIN: Content-->
  <div class="app-content content ">
@@ -55,6 +62,7 @@
                                     {{ csrf_field() }}
                                     
                                         <div class="row">
+                                            <h4>Basic Details</h4>
 
                                             <div class="col-md-6 col-12">
                                                 <div class="mb-1">
@@ -308,9 +316,27 @@
                                             <div class="col-md-12 col-12">
                                                 <div class="mb-1">
                                                     <label class="form-label" for="exampleFormControlTextarea1">Comment</label>
-                                                    <textarea class="form-control" name="comment" id="exampleFormControlTextarea1" rows="2" placeholder="Comment">{{ old('sh_address') }}</textarea>
+                                                    <textarea class="form-control" name="comment" id="exampleFormControlTextarea1" rows="2" placeholder="Comment">{{ old('comment') }}</textarea>
                                                 </div>
                                             </div>
+
+                                            <h3 style="background: #48ca88;
+                                        color: white;
+                                        padding: 1%;">Follow Up Details</h3>
+
+                                        <div class="col-md-6 col-12">
+                                            <div class="mb-1">
+                                                <label class="form-label" for="first-name-column">Next Follow-up Date </label>
+                                                <input type="date" id="first-name-column" name="next_follow_date" class="form-control" placeholder="" value="{{ old('next_follow_date') }}" />
+                                            </div>
+                                        </div>
+
+                                        <div class="col-md-6 col-12">
+                                            <div class="mb-1">
+                                                <label class="form-label" for="first-name-column">Customer Notes</label>
+                                                <input type="text" id="first-name-column" name="next_follow_comment" class="form-control" placeholder="Customer Note" value="{{ old('next_follow_comment') }}" />
+                                            </div>
+                                        </div>
                                             
                                             <div class="col-12">
                                                 <button type="submit" class="btn btn-primary me-1">Submit</button>

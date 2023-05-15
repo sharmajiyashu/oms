@@ -338,7 +338,7 @@
                                         <div class="col-md-6 col-12">
                                             <div class="mb-1">
                                                 <label class="form-label" for="first-name-column">Customer Notes</label>
-                                                <input type="number" id="first-name-column" name="next_follow_comment" class="form-control" placeholder="Customer Note" value="{{ old('next_follow_comment') }}" />
+                                                <input type="text" id="first-name-column" name="next_follow_comment" class="form-control" placeholder="Customer Note" value="{{ old('next_follow_comment') }}" />
                                             </div>
                                         </div>
                                         

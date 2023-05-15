@@ -6,6 +6,7 @@ use App\Http\Controllers\AgentController;
 use App\Http\Controllers\Controller;
 use App\Http\Controllers\OrderController;
 use App\Http\Controllers\FollowMasterController;
+use App\Http\Controllers\FollowUpController;
 
 
 Route::get('loginin', function () {
@@ -25,7 +26,7 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.','middleware' => 'AdminAuth']
     Route::get('/', function () {
         return view('admin.dashboard');
     })->name('dashboard');
-    Route::post('orders', [OrderController::class, 'update_tracking_id'])->name('orders.tracking_update');
+    Route::post('orders-tracking', [OrderController::class, 'update_tracking_id'])->name('orders.tracking_update');
     Route::post('changeStatus', [OrderController::class, 'change_status'])->name('orders.changeStatus');
 
 });
@@ -37,6 +38,9 @@ Route::group(['prefix' => 'agent', 'as' => 'agent.' ,'middleware'=>'AgentAuth'],
         return view('admin.dashboard');
     })->name('dashboard');
     Route::resource('orders',OrderController::class);
+    Route::resource('follow-up',FollowUpController::class);
+    Route::get('follow-up-detail/{id}', [FollowUpController::class, 'show_detail'])->name('follow-up.show-detail');
+    Route::post('add-more', [FollowUpController::class, 'add_follow_up'])->name('follow-up.add-more');
 });
 
 

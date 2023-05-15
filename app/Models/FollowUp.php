@@ -8,4 +8,6 @@ use Illuminate\Database\Eloquent\Model;
 class FollowUp extends Model
 {
     use HasFactory;
+
+    protected $fillable = ['user_id','order_id','type','date','note'];
 }
