@@ -78,6 +78,8 @@
                             </li>
                             <li><a class="d-flex align-items-center" href="{{ route('admin.products.index')}}"><i data-feather="circle"></i><span class="menu-item text-truncate" data-i18n="Details">Product</span></a>
                             </li>
+                            <li><a class="d-flex align-items-center" href="{{ route('admin.companies.index')}}"><i data-feather="circle"></i><span class="menu-item text-truncate" data-i18n="Details">Company</span></a>
+                            </li>
                         </ul>
                     </li>
 

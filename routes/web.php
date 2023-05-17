@@ -9,6 +9,7 @@ use App\Http\Controllers\FollowMasterController;
 use App\Http\Controllers\FollowUpController;
 use App\Http\Controllers\EnquireController;
 use App\Http\Controllers\ProductController;
+use App\Http\Controllers\CompanyController;
 
 
 Route::get('loginin', function () {
@@ -26,6 +27,7 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.','middleware' => 'AdminAuth']
     Route::resource('orders',OrderController::class);
     Route::resource('follow-up-master',FollowMasterController::class);
     Route::resource('products',ProductController::class);
+    Route::resource('companies',CompanyController::class);
     Route::get('/', function () {
         return view('admin.dashboard');
     })->name('dashboard');
