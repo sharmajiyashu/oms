@@ -23,7 +23,8 @@
 
     <style>
         .table:not(.table-dark):not(.table-light) thead:not(.table-dark) th, .table:not(.table-dark):not(.table-light) tfoot:not(.table-dark) th {
-    background-color: #efd1a2;
+    background-color: #a69171;
+    color: white;
 }
     </style>
 

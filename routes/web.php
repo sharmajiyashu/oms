@@ -8,6 +8,7 @@ use App\Http\Controllers\OrderController;
 use App\Http\Controllers\FollowMasterController;
 use App\Http\Controllers\FollowUpController;
 use App\Http\Controllers\EnquireController;
+use App\Http\Controllers\ProductController;
 
 
 Route::get('loginin', function () {
@@ -24,6 +25,7 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.','middleware' => 'AdminAuth']
     Route::resource('agent',AgentController::class);
     Route::resource('orders',OrderController::class);
     Route::resource('follow-up-master',FollowMasterController::class);
+    Route::resource('products',ProductController::class);
     Route::get('/', function () {
         return view('admin.dashboard');
     })->name('dashboard');
