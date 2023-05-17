@@ -2,6 +2,11 @@
 @extends('admin.layouts.app')
 
 @section('content')
+<style>
+    .active_date{
+        color: red;
+    }
+</style>
 <div class="app-content content ">
     <div class="content-overlay"></div>
     <div class="header-navbar-shadow"></div>
@@ -60,7 +65,7 @@
                                 
                                 <div class="row">
                                     
-                                    <div class="col-md-1"> <span><strong>{{ date('d-m-y',strtotime($item->date)) }}</strong></span></div>
+                                    <div class="col-md-1  @php if($item->date == date('Y-m-d')){ echo 'active_date'; } @endphp"> <span><strong>{{ date('d-m-y',strtotime($item->date)) }}</strong></span></div>
                                     <div class="col-md-11"> <span>{{ $item->note }}</span></div>
                                 </div>
                                 

@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Order;
 use App\Models\FollowUp;
+use App\Models\FollowMaster;
 use App\Http\Requests\StoreOrderRequest;
 use App\Http\Requests\UpdateOrderRequest;
 use Illuminate\Http\Request;
@@ -17,16 +18,37 @@ class OrderController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
 
         if(Auth::check()){
-            if(Auth::user()->type == 'admin'){
-                $orders = Order::orderBy('id','desc')->get();
-                return view('admin.orders.index',compact('orders'));
+            if(!empty($request->date)){
+                $date = $request->date;
             }else{
-                $orders = Order::orderBy('id','desc')->where('user_id',Auth::user()->id)->get();
-                return view('admin.agent.orders.index',compact('orders'));
+                $date = date('Y-m-d');
+            }
+            $date_time = ['date_to'=>$request->date_to,'date_from' => $request->date_from ,'status' => $request->status];
+            $follow_up_master = FollowMaster::orderBy('title','asc')->get();
+            if(Auth::user()->type == 'admin'){
+
+                $orders = Order::orderBy('id','desc');
+                        if(!empty($request->date_from)){
+                           $orders->whereBetween('created_at', [$startDate, $endDate]);
+                        }
+                $orders = $orders->get();
+                return view('admin.orders.index',compact('orders','follow_up_master','date_time'));
+            }else{
+                $orders = Order::orderBy('id','desc')->where('user_id',Auth::user()->id);
+                if(!empty($request->date_from)){
+                    if(!empty($request->date_to)){
+                        $endDate = $request->date_to;
+                    }else{
+                        $endDate = date('Y-m-d');
+                    }
+                    $orders->whereBetween('created_at', [$request->date_from, $endDate]);
+                 }
+                $orders = $orders->get();
+                return view('admin.agent.orders.index',compact('orders','follow_up_master','date_time'));
             }
         }else{
             return redirect('/')->with('error','login now');

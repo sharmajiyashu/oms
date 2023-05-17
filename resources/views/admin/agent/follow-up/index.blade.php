@@ -50,11 +50,27 @@
                     <div class="row">
                         <div class="col-12">
                             <div class="card">
-                                <div class="card-header border-bottom">
-                                    <h4 class="card-title">List</h4>
-                
-                
-                                </div>
+                                <form action="" method="get">
+                                    @csrf
+                                    <div class="row border-bottom card-header">
+                                        <div class="col-md-6"><h4 class="card-title">List</h4></div>
+                                        <div class="col-md-2">
+                                            <input type="date" class="form-control" name="date" value="{{ $date_time['date'] }}" />
+                                        </div>
+                                        <div class="col-md-2">
+                                            <select name="status" id="" class="form-control">
+                                                <option value="">All</option>
+                                                <option value="New">New</option>
+                                                @foreach ($follow_up_master as $item)
+                                                    <option value="{{ $item->title }}" {{ (isset($date_time['status']) && $date_time['status'] == $item->title) ? 'selected' : '' }}>{{ $item->title }}</option>
+                                                @endforeach
+                                            </select>
+                                        </div>
+                                        <div class="col-md-2">
+                                            <button class="btn btn-success">Search</button>
+                                        </div>
+                                    </div>
+                                </form>
                                 <div class="card-datatable">
                                     <table class="datatables-ajax table table-responsive">
                                         <thead>

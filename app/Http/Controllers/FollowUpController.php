@@ -17,15 +17,29 @@ class FollowUpController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
+        if(!empty($request->date)){
+            $date = $request->date;
+        }else{
+            $date = date('Y-m-d');
+        }
+
         $data = FollowUp::orderBy('follow_ups.id','asc')
                 ->select('orders.order_id','orders.customer_name','orders.mobile','orders.email','follow_ups.type','follow_ups.date','follow_ups.status','note')
                 ->join('orders','orders.id','=','follow_ups.order_id')
                 ->where('orders.user_id',Auth::user()->id)
                 ->where('orders.status','Accept')
-                ->where('follow_ups.date',date('Y-m-d'))->get();
-        return view('admin.agent.follow-up.index',compact('data'));
+
+                ->where('follow_ups.date',$date);
+                if(!empty($request->status)){
+                    $data->where('orders.follow_up_type',$request->status);
+                }
+                $data = $data->get();
+
+                $date_time = ['date'=>$date ,'status' => $request->status];
+                $follow_up_master = FollowMaster::orderBy('title','asc')->get();
+        return view('admin.agent.follow-up.index',compact('data','date_time','follow_up_master'));
     }
 
     public function show_detail($id){
