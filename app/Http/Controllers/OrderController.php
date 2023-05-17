@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Models\Order;
 use App\Models\FollowUp;
+use App\Models\Company;
+use App\Models\Product;
 use App\Models\FollowMaster;
 use App\Http\Requests\StoreOrderRequest;
 use App\Http\Requests\UpdateOrderRequest;
@@ -65,10 +67,14 @@ class OrderController extends Controller
     {
         $cities = DB::table('cities')->get();
         $states = DB::table('states')->get();
+
+        $company = Company::where('status','Active')->orderby('title','asc')->get();
+        $product = Product::where('status','Active')->orderby('title','asc')->get();
+        $follow_up = FollowMaster::where('status','Active')->orderby('title','asc')->get();
         if(Auth::user()->type == 'admin'){
-            return view('admin.orders.create',compact('cities','states'));
+            return view('admin.orders.create',compact('cities','states','company','product','follow_up'));
         }else{
-            return view('admin.agent.orders.create',compact('cities','states'));
+            return view('admin.agent.orders.create',compact('cities','states','company','product','follow_up'));
         }
         
     }
@@ -99,9 +105,10 @@ class OrderController extends Controller
         $data['comment'] = $request->comment;
         $data['order_id'] = $this->generate_orderid();
         $data['user_id'] = Auth::user()->id;
+        $data['follow_up_type'] = $request->follow_up_type;
         $order = Order::create($data);
 
-        if(!empty($request->next_follow_date)){
+        if(!empty($request->next_follow_date && !empty($request->next_follow_comment))){
             FollowUp::create(['user_id' => Auth::user()->id ,'order_id' => $order->id ,'type' => 'New' ,'date' => $request->next_follow_date ,'note' => $request->next_follow_comment]);
         }
 

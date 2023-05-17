@@ -75,13 +75,24 @@
                                             </div>
                                         </div>
 
-                                        <div class="col-md-6 col-12">
+                                        <div class="col-md-3 col-12">
                                             <div class="mb-1">
                                                 <label class="form-label"  for="last-name-column">Company</label>
                                                 <select class="form-select" name="company" id="basicSelect">
-                                                    @foreach (config('constant.company') as $item)
-                                                        <option value="{{ $item }}">{{ $item }}</option>
+                                                    @foreach ($company as $item)
+                                                        <option value="{{ $item->title }}">{{ $item->title }}</option>
                                                     @endforeach
+                                                </select>
+                                            </div>
+                                        </div>
+
+                                        <div class="col-md-3 col-12">
+                                            <div class="mb-1">
+                                                <label class="form-label"  for="last-name-column">Customer Type</label>
+                                                <select class="form-select" name="customer_type" id="">
+                                                    @foreach (config('constant.customer_type') as $item)
+                                                    <option value="{{ $item }}">{{ $item }}</option>
+                                                @endforeach
                                                 </select>
                                             </div>
                                         </div>
@@ -91,10 +102,10 @@
                                             <div class="row">   
                                                 <div class="col-md-6 col-12">
                                                     <div class="mb-1">
-                                                        <label class="form-label"  for="last-name-column">Product</label>
-                                                        <select class="form-select" name="product[]" id="basicSelect">
-                                                            @foreach (config('constant.products') as $item)
-                                                                <option value="{{ $item }}">{{ $item }}</option>
+                                                        <label class="form-label"  >Product</label>
+                                                        <select class="form-select" name="product[]" >
+                                                            @foreach ($product as $item)
+                                                                <option value="{{ $item->title }}">{{ $item->title }}</option>
                                                             @endforeach
                                                         </select>
                                                     </div>
@@ -102,8 +113,8 @@
     
                                                 <div class="col-md-6 col-12">
                                                     <div class="mb-1">
-                                                        <label class="form-label" for="first-name-column">Quantity</label>
-                                                        <input type="number" id="first-name-column" name="quantity[]" class="form-control" placeholder="Customer Name" value="{{ old('customer_name') }}" />
+                                                        <label class="form-label" >Quantity</label>
+                                                        <input type="number"  name="quantity[]" class="form-control" placeholder="Customer Name" value="{{ old('customer_name') }}" />
                                                     </div>
                                                 </div>
                                             </div>
@@ -124,8 +135,8 @@
                                                         <div class="mb-1">
                                                             <label class="form-label"  for="last-name-column">Product</label>
                                                             <select class="form-select" name="product[]" id="basicSelect">
-                                                                @foreach (config('constant.products') as $item)
-                                                                    <option value="{{ $item }}">{{ $item }}</option>
+                                                                @foreach ($product as $item)
+                                                                    <option value="{{ $item->title }}">{{ $item->title }}</option>
                                                                 @endforeach
                                                             </select>
                                                         </div>
@@ -337,8 +348,19 @@
 
                                         <div class="col-md-6 col-12">
                                             <div class="mb-1">
-                                                <label class="form-label" for="first-name-column">Customer Notes</label>
-                                                <input type="text" id="first-name-column" name="next_follow_comment" class="form-control" placeholder="Customer Note" value="{{ old('next_follow_comment') }}" />
+                                                <label class="form-label"  for="last-name-column">Status</label>
+                                                <select name="follow_up_type" id="" class="form-select">
+                                                    @foreach ($follow_up as $item)
+                                                        <option value="">{{ $item->title }}</option>
+                                                    @endforeach
+                                                </select>
+                                            </div>
+                                        </div>
+
+                                        <div class="col-md-12">
+                                            <div class="mb-1">
+                                                <label class="form-label" for="exampleFormControlTextarea1">Customer Notes</label>
+                                                <textarea class="form-control" name="next_follow_comment" id="exampleFormControlTextarea1" rows="2" placeholder="Comment Note">{{ old('next_follow_comment') }}</textarea>
                                             </div>
                                         </div>
                                         
