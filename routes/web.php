@@ -7,6 +7,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Controllers\OrderController;
 use App\Http\Controllers\FollowMasterController;
 use App\Http\Controllers\FollowUpController;
+use App\Http\Controllers\EnquireController;
 
 
 Route::get('loginin', function () {
@@ -39,8 +40,11 @@ Route::group(['prefix' => 'agent', 'as' => 'agent.' ,'middleware'=>'AgentAuth'],
     })->name('dashboard');
     Route::resource('orders',OrderController::class);
     Route::resource('follow-up',FollowUpController::class);
+    Route::resource('enquire',EnquireController::class);
     Route::get('follow-up-detail/{id}', [FollowUpController::class, 'show_detail'])->name('follow-up.show-detail');
+    Route::get('enquires-follow-ups', [EnquireController::class, 'enquires_follow_list'])->name('enquire.follows_ups');
     Route::post('add-more', [FollowUpController::class, 'add_follow_up'])->name('follow-up.add-more');
+    Route::post('add-followup', [EnquireController::class, 'add_follow_up'])->name('enquire.add-followup');
 });
 
 

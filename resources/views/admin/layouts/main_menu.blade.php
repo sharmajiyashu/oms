@@ -94,13 +94,32 @@
                             </li>
                         </ul>
                     </li>
+
+                    <li class=" nav-item"><a class="d-flex align-items-center" href="#"><i data-feather="shopping-bag"></i><span class="menu-title text-truncate" data-i18n="eCommerce">Enquire</span></a>
+                        <ul class="menu-content">
+                            <li><a class="d-flex align-items-center" href="{{ route('agent.enquire.index')}}"><i data-feather="circle"></i><span class="menu-item text-truncate" data-i18n="Shop"> List</span></a>
+                            </li>
+                            <li><a class="d-flex align-items-center" href="{{ route('agent.enquire.create')}}"><i data-feather="circle"></i><span class="menu-item text-truncate" data-i18n="Details">Add</span></a>
+                            </li>
+                        </ul>
+                    </li>
+                    
                     @php
-                        $count = DB::table('follow_ups')->where('user_id',Auth::user()->id)->where('date',date('Y-m-d'))->where('status','unseen')->count();
+                        $order_follow = DB::table('follow_ups')->where('user_id',Auth::user()->id)->where('date',date('Y-m-d'))->where('status','unseen')->count();
+                        $enquiry_follow = DB::table('enquiry_follow_ups')->join('enquires','enquires.id','=','enquiry_follow_ups.enquiry_id')->where('enquires.user_id',Auth::user()->id)->where('enquiry_follow_ups.date',date('Y-m-d'))->count();
+                        $total_follow = $order_follow + $enquiry_follow;
                     @endphp
 
-                    <li class=" nav-item"><a class="d-flex align-items-center" href="{{ route('agent.follow-up.index')}}"><i data-feather="home"></i><span class="menu-title text-truncate" data-i18n="Dashboards">Follow Up</span><span class="badge badge-light-warning rounded-pill ms-auto me-1">{{ $count }}</span></a>
-                    
+                    <li class=" nav-item"><a class="d-flex align-items-center" href=""><i data-feather="home"></i><span class="menu-title text-truncate" data-i18n="Dashboards">Follow Up</span><span class="badge badge-light-success rounded-pill ms-auto me-1">{{ $total_follow }}</span></a>
+                        <ul class="menu-content">
+                            <li><a class="d-flex align-items-center" href="{{ route('agent.follow-up.index')}}"><i data-feather="circle"></i><span class="menu-item text-truncate" data-i18n="Shop"> Orders</span><span class="badge badge-light-warning rounded-pill ms-auto me-1">{{ $order_follow }}</span></a>
+                            </li>
+                            <li><a class="d-flex align-items-center" href="{{ route('agent.enquire.follows_ups')}}"><i data-feather="circle"></i><span class="menu-item text-truncate" data-i18n="Details">Enquire</span><span class="badge badge-light-warning rounded-pill ms-auto me-1">{{ $enquiry_follow }}</span></a>
+                            </li>
+                        </ul>
                     </li>
+
+                    
                     
                 @endif
 
