@@ -81,6 +81,10 @@ class AgentController extends Controller
         $data = $request->validated();
         $data['address'] = $request->address;
         $agent->update($data);
+
+        if(!empty($request->password)){
+            User::where('id',$agent->user_id)->update(['password' => Hash::make($request->password)]);
+        }
         return redirect()->route('admin.agent.index')->with('success','Agent update success');
     }
 

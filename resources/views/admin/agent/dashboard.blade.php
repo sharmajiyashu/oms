@@ -23,27 +23,15 @@
                         <div class="col-xl-12 col-md-6 col-12">
                             <div class="card card-statistics">
                                 <div class="card-header">
-                                    <h4 class="card-title">Statistics</h4>
+                                    <h4 class="card-title">Today Statistics</h4>
                                     <div class="d-flex align-items-center">
                                         {{-- <p class="card-text font-small-2 me-25 mb-0">Updated 1 month ago</p> --}}
                                     </div>
                                 </div>
                                 <div class="card-body statistics-body">
                                     <div class="row">
-                                        <div class="col-xl-2 col-sm-6 col-12 mb-2 mb-xl-0">
-                                            <div class="d-flex flex-row">
-                                                <div class="avatar bg-light-primary me-2">
-                                                    <div class="avatar-content">
-                                                        <i data-feather="trending-up" class="avatar-icon"></i>
-                                                    </div>
-                                                </div>
-                                                <div class="my-auto">
-                                                    <h4 class="fw-bolder mb-0">{{ $total_orders }}</h4>
-                                                    <p class="card-text font-small-3 mb-0">Total Orders</p>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="col-xl-2 col-sm-6 col-12 mb-2 mb-xl-0">
+                                        
+                                        <div class="col-xl-4 col-sm-6 col-12 mb-2 mb-xl-0">
                                             <div class="d-flex flex-row">
                                                 <div class="avatar bg-light-success me-2">
                                                     <div class="avatar-content">
@@ -56,20 +44,9 @@
                                                 </div>
                                             </div>
                                         </div>
-                                        <div class="col-xl-2 col-sm-6 col-12 mb-2 mb-xl-0">
-                                            <div class="d-flex flex-row">
-                                                <div class="avatar bg-light-danger me-2">
-                                                    <div class="avatar-content">
-                                                        <i data-feather="trending-up" class="avatar-icon"></i>
-                                                    </div>
-                                                </div>
-                                                <div class="my-auto">
-                                                    <h4 class="fw-bolder mb-0">{{ $today_orders }}</h4>
-                                                    <p class="card-text font-small-3 mb-0">Reject Orders</p>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="col-xl-2 col-sm-6 col-12 mb-2 mb-xl-0">
+
+                                        
+                                        <div class="col-xl-4 col-sm-6 col-12 mb-2 mb-xl-0">
                                             <div class="d-flex flex-row">
                                                 <div class="avatar bg-light-warning me-2">
                                                     <div class="avatar-content">
@@ -77,25 +54,13 @@
                                                     </div>
                                                 </div>
                                                 <div class="my-auto">
-                                                    <h4 class="fw-bolder mb-0">{{ $today_orders }}</h4>
-                                                    <p class="card-text font-small-3 mb-0">Today Reject</p>
+                                                    <h4 class="fw-bolder mb-0">{{ $today_reject_orders }}</h4>
+                                                    <p class="card-text font-small-3 mb-0">Today Rejected</p>
                                                 </div>
                                             </div>
                                         </div>
-                                        <div class="col-xl-2 col-sm-6 col-12 mb-2 mb-xl-0">
-                                            <div class="d-flex flex-row">
-                                                <div class="avatar bg-light-info me-2">
-                                                    <div class="avatar-content">
-                                                        <i data-feather="user" class="avatar-icon"></i>
-                                                    </div>
-                                                </div>
-                                                <div class="my-auto">
-                                                    <h4 class="fw-bolder mb-0">{{ $total_enquiry }}</h4>
-                                                    <p class="card-text font-small-3 mb-0">Total Enquire</p>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="col-xl-2 col-sm-6 col-12 mb-2 mb-xl-0">
+                                        
+                                        <div class="col-xl-4 col-sm-6 col-12 mb-2 mb-xl-0">
                                             <div class="d-flex flex-row">
                                                 <div class="avatar bg-light-success me-2">
                                                     <div class="avatar-content">
@@ -108,6 +73,64 @@
                                                 </div>
                                             </div>
                                         </div>
+                                        
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-xl-12 col-md-6 col-12">
+                            <div class="card card-statistics">
+                                <div class="card-header">
+                                    <h4 class="card-title">Total Statistics</h4>
+                                    <div class="d-flex align-items-center">
+                                        {{-- <p class="card-text font-small-2 me-25 mb-0">Updated 1 month ago</p> --}}
+                                    </div>
+                                </div>
+                                <div class="card-body statistics-body">
+                                    <div class="row">
+                                        <div class="col-xl-4 col-sm-6 col-12 mb-2 mb-xl-0">
+                                            <div class="d-flex flex-row">
+                                                <div class="avatar bg-light-primary me-2">
+                                                    <div class="avatar-content">
+                                                        <i data-feather="trending-up" class="avatar-icon"></i>
+                                                    </div>
+                                                </div>
+                                                <div class="my-auto">
+                                                    <h4 class="fw-bolder mb-0">{{ $total_orders }}</h4>
+                                                    <p class="card-text font-small-3 mb-0">Total Orders</p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        
+                                        <div class="col-xl-4 col-sm-6 col-12 mb-2 mb-xl-0">
+                                            <div class="d-flex flex-row">
+                                                <div class="avatar bg-light-danger me-2">
+                                                    <div class="avatar-content">
+                                                        <i data-feather="trending-up" class="avatar-icon"></i>
+                                                    </div>
+                                                </div>
+                                                <div class="my-auto">
+                                                    <h4 class="fw-bolder mb-0">{{ $total_reject_orders }}</h4>
+                                                    <p class="card-text font-small-3 mb-0"> Rejected Orders</p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                       
+                                        <div class="col-xl-4 col-sm-6 col-12 mb-2 mb-xl-0">
+                                            <div class="d-flex flex-row">
+                                                <div class="avatar bg-light-info me-2">
+                                                    <div class="avatar-content">
+                                                        <i data-feather="user" class="avatar-icon"></i>
+                                                    </div>
+                                                </div>
+                                                <div class="my-auto">
+                                                    <h4 class="fw-bolder mb-0">{{ $total_enquiry }}</h4>
+                                                    <p class="card-text font-small-3 mb-0">Total Enquire</p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                       
                                         
                                     </div>
                                 </div>

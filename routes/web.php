@@ -22,9 +22,7 @@ Route::get('/', [Controller::class, 'dashboard'])->name('/');
 Route::get('log-in', function() { return view('admin.login'); })->name('admin.login');
 
 Route::group(['prefix' => 'admin', 'as' => 'admin.','middleware' => 'AdminAuth'], function () {
-    Route::get('/', function () {
-        return view('admin.dashboard');
-    })->name('dashboard');
+    Route::get('/', [Controller::class,'admin_dashboard'])->name('dashboard');
     Route::resource('agent',AgentController::class);
     Route::resource('orders',OrderController::class);
     Route::resource('follow-up-master',FollowMasterController::class);

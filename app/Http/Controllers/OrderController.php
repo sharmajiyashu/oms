@@ -22,39 +22,34 @@ class OrderController extends Controller
      */
     public function index(Request $request)
     {
-
-        if(Auth::check()){
-            if(!empty($request->date)){
-                $date = $request->date;
-            }else{
-                $date = date('Y-m-d');
-            }
-            $date_time = ['date_to'=>$request->date_to,'date_from' => $request->date_from ,'status' => $request->status];
-            $follow_up_master = FollowMaster::orderBy('title','asc')->get();
-            if(Auth::user()->type == 'admin'){
-
-                $orders = Order::orderBy('id','desc');
-                        if(!empty($request->date_from)){
-                           $orders->whereBetween('created_at', [$startDate, $endDate]);
-                        }
-                $orders = $orders->get();
-                return view('admin.orders.index',compact('orders','follow_up_master','date_time'));
-            }else{
-                $orders = Order::orderBy('id','desc')->where('user_id',Auth::user()->id);
-                if(!empty($request->date_from)){
-                    if(!empty($request->date_to)){
-                        $endDate = $request->date_to;
-                    }else{
-                        $endDate = date('Y-m-d');
-                    }
-                    $orders->whereBetween('created_at', [$request->date_from, $endDate]);
-                 }
-                $orders = $orders->get();
-                return view('admin.agent.orders.index',compact('orders','follow_up_master','date_time'));
-            }
+        if(!empty($request->date)){
+            $date = $request->date;
         }else{
-            return redirect('/')->with('error','login now');
+            $date = date('Y-m-d');
         }
+        $date_time = ['date_to'=>$request->date_to,'date_from' => $request->date_from ,'status' => $request->status];
+        $follow_up_master = FollowMaster::orderBy('title','asc')->get();
+
+        $orders = Order::orderBy('id','desc')->join('users','users.id','=','orders.user_id')
+                    ->select('orders.*','users.name');
+            if(!empty($request->date_from)){
+                if(!empty($request->date_to)){
+                    $endDate = $request->date_to;
+                }else{
+                    $endDate = date('Y-m-d');
+                }
+                $orders->whereBetween('orders.created_at', [$request->date_from, $endDate]);
+                }
+            
+        if(Auth::user()->type == 'admin'){
+            $orders = $orders->get();
+            return view('admin.orders.index',compact('orders','follow_up_master','date_time'));
+        }else{
+            $orders->where('orders.user_id',Auth::user()->id);
+            $orders = $orders->get();
+            return view('admin.agent.orders.index',compact('orders','follow_up_master','date_time'));
+        }
+
         
     }
 
