@@ -87,7 +87,12 @@
                                             <h5 class="modal-title" id="myModalLabel160">{{ $enquire->order_id }}</h5>
                                             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                         </div>
-                                        <form action="{{ route('agent.enquire.add-followup') }}" method="post">
+                                        @if (Auth::user()->type == 'admin')
+                                            <form action="{{ route('admin.enquire.add-followup') }}" method="post">
+                                        @else
+                                            <form action="{{ route('agent.enquire.add-followup') }}" method="post">
+                                        @endif
+                                        
                                             @csrf
                                             <input type="hidden" name="enquiry_id" value="{{ $enquire->id }}">
                                             <div class="modal-body">

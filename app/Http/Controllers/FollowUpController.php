@@ -26,10 +26,12 @@ class FollowUpController extends Controller
         }
 
         $data = FollowUp::orderBy('follow_ups.id','asc')
-                ->select('orders.order_id','orders.customer_name','orders.mobile','orders.email','follow_ups.type','follow_ups.date','follow_ups.status','note')
-                ->join('orders','orders.id','=','follow_ups.order_id')
-                ->where('orders.user_id',Auth::user()->id)
-                ->where('orders.status','Accept')
+                ->select('orders.order_id','orders.customer_name','orders.mobile','orders.email','follow_ups.type','follow_ups.date','follow_ups.status','note','orders.follow_up_type')
+                ->join('orders','orders.id','=','follow_ups.order_id');
+                if(Auth::user()->type != 'admin'){
+                    $data->where('orders.user_id',Auth::user()->id);
+                }
+                $data->where('orders.status','Accept')
 
                 ->where('follow_ups.date',$date);
                 if(!empty($request->status)){

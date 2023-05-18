@@ -28,12 +28,12 @@
                 <div class="content-header-left col-md-9 col-12 mb-2">
                     <div class="row breadcrumbs-top">
                         <div class="col-12">
-                            <h2 class="content-header-title float-start mb-0">Follow Up Master</h2>
+                            <h2 class="content-header-title float-start mb-0">Order -Follow Up </h2>
                             <div class="breadcrumb-wrapper">
                                 <ol class="breadcrumb">
                                     <li class="breadcrumb-item"><a href="{{url('admin/')}}">Home</a>
                                     </li>
-                                    <li class="breadcrumb-item"><a href="{{ route('admin.follow-up-master.index') }}">follow-up-master</a>
+                                    <li class="breadcrumb-item"><a href="{{ route('admin.follow-up-master.index') }}">Follow Up</a>
                                     </li>
                                     <li class="breadcrumb-item active">List
                                     </li>
@@ -80,7 +80,6 @@
                                                 <th>Mobile</th>
                                                 <th>Email</th>
                                                 <th>Type</th>
-                                                
                                                 <th>Date</th>
                                             </tr>
                                         </thead>
@@ -89,11 +88,16 @@
                                             @foreach($data as $key => $val)
                                             <tr>
                                                 {{-- <th scope="row">{{ $i }}</th> --}}
-                                                <td><a href="{{ route('agent.follow-up.show-detail',$val->order_id) }}"><strong>{{ $val->order_id }}</strong></a></td>
+                                                @if (Auth::user()->type == 'agent')
+                                                    <td><a href="{{ route('agent.follow-up.show-detail',$val->order_id) }}"><strong>{{ $val->order_id }}</strong></a></td>
+                                                @else
+                                                    <td><a href="{{ route('admin.follow-up.show-detail',$val->order_id) }}"><strong>{{ $val->order_id }}</strong></a></td>
+                                                @endif
+                                                
                                                 <td>{{ $val->customer_name }}</td>
                                                 <td>{{ $val->mobile }}</td>
                                                 <td>{{ $val->email }}</td>
-                                                <td>{{ $val->type }}</td>
+                                                <td>{{ $val->follow_up_type }}</td>
                                                 
                                                 <td>{{ $val->date }}</td>
                                                 

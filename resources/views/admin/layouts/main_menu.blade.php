@@ -67,8 +67,17 @@
                         <ul class="menu-content">
                             <li><a class="d-flex align-items-center" href="{{ route('admin.orders.index')}}"><i data-feather="circle"></i><span class="menu-item text-truncate" data-i18n="Shop"> List</span></a>
                             </li>
-                            <li><a class="d-flex align-items-center" href="{{ route('admin.orders.create')}}"><i data-feather="circle"></i><span class="menu-item text-truncate" data-i18n="Details">Add</span></a>
+                            {{-- <li><a class="d-flex align-items-center" href="{{ route('admin.orders.create')}}"><i data-feather="circle"></i><span class="menu-item text-truncate" data-i18n="Details">Add</span></a>
+                            </li> --}}
+                        </ul>
+                    </li>
+
+                    <li class=" nav-item"><a class="d-flex align-items-center" href="#"><i data-feather="shopping-bag"></i><span class="menu-title text-truncate" data-i18n="eCommerce">Enquire</span></a>
+                        <ul class="menu-content">
+                            <li><a class="d-flex align-items-center" href="{{ route('admin.enquire.index')}}"><i data-feather="circle"></i><span class="menu-item text-truncate" data-i18n="Shop"> List</span></a>
                             </li>
+                            {{-- <li><a class="d-flex align-items-center" href="{{ route('admin.enquire.create')}}"><i data-feather="circle"></i><span class="menu-item text-truncate" data-i18n="Details">Add</span></a>
+                            </li> --}}
                         </ul>
                     </li>
 
@@ -79,6 +88,20 @@
                             <li><a class="d-flex align-items-center" href="{{ route('admin.products.index')}}"><i data-feather="circle"></i><span class="menu-item text-truncate" data-i18n="Details">Product</span></a>
                             </li>
                             <li><a class="d-flex align-items-center" href="{{ route('admin.companies.index')}}"><i data-feather="circle"></i><span class="menu-item text-truncate" data-i18n="Details">Company</span></a>
+                            </li>
+                        </ul>
+                    </li>
+                    @php
+                        $order_follow = DB::table('follow_ups')->join('orders','orders.id','=','follow_ups.order_id')->where('orders.status','Accept')->where('follow_ups.date',date('Y-m-d'))->count();
+                        $enquiry_follow = DB::table('enquiry_follow_ups')->join('enquires','enquires.id','=','enquiry_follow_ups.enquiry_id')->where('enquiry_follow_ups.date',date('Y-m-d'))->count();
+                        $total_follow = $order_follow + $enquiry_follow;
+                    @endphp
+
+                    <li class=" nav-item"><a class="d-flex align-items-center" href=""><i data-feather="home"></i><span class="menu-title text-truncate" data-i18n="Dashboards">Follow Up</span><span class="badge badge-light-success rounded-pill ms-auto me-1">{{ $total_follow }}</span></a>
+                        <ul class="menu-content">
+                            <li><a class="d-flex align-items-center" href="{{ route('admin.follow-up.index')}}"><i data-feather="circle"></i><span class="menu-item text-truncate" data-i18n="Shop"> Orders</span><span class="badge badge-light-warning rounded-pill ms-auto me-1">{{ $order_follow }}</span></a>
+                            </li>
+                            <li><a class="d-flex align-items-center" href="{{ route('admin.enquire.follows_ups')}}"><i data-feather="circle"></i><span class="menu-item text-truncate" data-i18n="Details">Enquire</span><span class="badge badge-light-warning rounded-pill ms-auto me-1">{{ $enquiry_follow }}</span></a>
                             </li>
                         </ul>
                     </li>
@@ -107,7 +130,7 @@
                     </li>
                     
                     @php
-                        $order_follow = DB::table('follow_ups')->join('orders','orders.id','=','follow_ups.order_id')->where('orders.status','Accept')->where('orders.user_id',Auth::user()->id)->where('follow_ups.date',date('Y-m-d'))->count();
+                        $order_follow = DB::table('follow_ups')->join('orders','orders.id','=','follow_ups.order_id')->where('orders.status','Accept')->where('follow_ups.date',date('Y-m-d'))->count();
                         $enquiry_follow = DB::table('enquiry_follow_ups')->join('enquires','enquires.id','=','enquiry_follow_ups.enquiry_id')->where('enquires.user_id',Auth::user()->id)->where('enquiry_follow_ups.date',date('Y-m-d'))->count();
                         $total_follow = $order_follow + $enquiry_follow;
                     @endphp

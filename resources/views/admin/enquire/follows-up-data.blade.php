@@ -75,7 +75,11 @@
                                             @foreach($data as $key => $val)
                                             <tr>
                                                 {{-- <th scope="row">{{ $i }}</th> --}}
-                                                <td><a href="{{ route('agent.enquire.show',$val->id) }}"><strong>{{ $val->customer_name }}</strong></a></td>
+                                                @if (Auth::user()->type == 'admin')
+                                                    <td><a href="{{ route('admin.enquire.show',$val->id) }}"><strong>{{ $val->customer_name }}</strong></a></td>
+                                                @else
+                                                    <td><a href="{{ route('agent.enquire.show',$val->id) }}"><strong>{{ $val->customer_name }}</strong></a></td>
+                                                @endif
                                                 <td>{{ $val->mobile }}</td>
                                                 <td>{{ $val->email }}</td>
                                                 <td>{{ $val->status }}</td>

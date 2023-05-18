@@ -83,7 +83,12 @@
                                             <h5 class="modal-title" id="myModalLabel160">{{ $orders->order_id }}</h5>
                                             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                         </div>
-                                        <form action="{{ route('agent.follow-up.add-more') }}" method="post">
+                                        @if (Auth::user()->type == 'admin')
+                                            <form action="{{ route('admin.follow-up.add-more') }}" method="post">
+                                        @else
+                                            <form action="{{ route('agent.follow-up.add-more') }}" method="post">
+                                        @endif
+                                        
                                             @csrf
                                             <input type="hidden" name="order_id" value="{{ $orders->id }}">
                                             <div class="modal-body">

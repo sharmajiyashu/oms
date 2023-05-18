@@ -115,9 +115,11 @@ class EnquireController extends Controller
             $date = date('Y-m-d');
         }
         $data = EnquiryFollowUp::join('enquires','enquires.id','=','enquiry_follow_ups.enquiry_id')
-                        ->select('enquires.*')
-                        ->where('enquires.user_id',Auth::user()->id)
-                        ->where('enquiry_follow_ups.date',$date);
+                        ->select('enquires.*');
+                        if(Auth::user()->type != 'admin'){
+                            $data->where('enquires.user_id',Auth::user()->id);
+                        }
+                        $data->where('enquiry_follow_ups.date',$date);
                         if(!empty($request->status)){
                             $data->where('enquires.status',$request->status);
                         }

@@ -39,7 +39,9 @@
                             <div class="card">
                                 <div class="card-header border-bottom">
                                     <h4 class="card-title">List</h4>
-                                    <a href="{{url('agent/enquire/create')}}" class=" btn btn-info btn-gradient round  ">Add</a>
+                                    @if (Auth::user()->type == 'agent')
+                                        <a href="{{url('agent/enquire/create')}}" class=" btn btn-info btn-gradient round  ">Add</a>
+                                    @endif
                                 </div>
                                 <div class="card-datatable">
                                     <table class="datatables-ajax table table-responsive">
@@ -51,7 +53,6 @@
                                                 <th>Email</th>
                                                 <th>Status</th>
                                                 <th>Created Date</th>
-                                                {{-- <th>Action</th> --}}
                                             </tr>
                                         </thead>
                                         <tbody>
@@ -59,7 +60,12 @@
                                             @foreach($data as $key => $val)
                                             <tr>
                                                 <th scope="row">{{ $i }}</th>
+                                                @if (Auth::user()->type == 'admin')
+                                                <td><a href="{{ route('admin.enquire.show',$val->id) }}"><strong>{{ $val->customer_name }}</strong></a></td>
+                                                @else
                                                 <td><a href="{{ route('agent.enquire.show',$val->id) }}"><strong>{{ $val->customer_name }}</strong></a></td>
+                                                @endif
+                                                
                                                 <td>{{ $val->mobile }}</td>
                                                 <td>{{ $val->email }}</td>
                                                 <td>{{ $val->status }}</td>
