@@ -107,7 +107,7 @@
                     </li>
                     
                     @php
-                        $order_follow = DB::table('follow_ups')->where('user_id',Auth::user()->id)->where('date',date('Y-m-d'))->where('status','unseen')->count();
+                        $order_follow = DB::table('follow_ups')->join('orders','orders.id','=','follow_ups.order_id')->where('orders.status','Accept')->where('orders.user_id',Auth::user()->id)->where('follow_ups.date',date('Y-m-d'))->count();
                         $enquiry_follow = DB::table('enquiry_follow_ups')->join('enquires','enquires.id','=','enquiry_follow_ups.enquiry_id')->where('enquires.user_id',Auth::user()->id)->where('enquiry_follow_ups.date',date('Y-m-d'))->count();
                         $total_follow = $order_follow + $enquiry_follow;
                     @endphp

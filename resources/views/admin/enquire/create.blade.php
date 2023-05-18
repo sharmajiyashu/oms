@@ -109,8 +109,9 @@
                                                 <div class="mb-1">
                                                     <label class="form-label"  for="last-name-column">Status</label>
                                                     <select class="form-select" name="status" id="basicSelect">
-                                                        <option value="Active">Active</option>
-                                                        <option value="Inactive">Inactive</option>
+                                                        @foreach ($follow_up as $item)
+                                                            <option value="{{ $item->title }}">{{ $item->title }}</option>
+                                                        @endforeach
                                                     </select>
                                                 </div>
                                             </div>

@@ -21,12 +21,22 @@
     </style>
     @endif
 
-    <style>
-        .table:not(.table-dark):not(.table-light) thead:not(.table-dark) th, .table:not(.table-dark):not(.table-light) tfoot:not(.table-dark) th {
-    background-color: #a69171;
-    color: white;
-}
-    </style>
+    @if (Auth::user()->type == 'admin')
+        <style>
+            .table:not(.table-dark):not(.table-light) thead:not(.table-dark) th, .table:not(.table-dark):not(.table-light) tfoot:not(.table-dark) th {
+                background-color: #5d7990;
+                color: white;
+            }
+        </style>
+    @else
+        <style>
+            .table:not(.table-dark):not(.table-light) thead:not(.table-dark) th, .table:not(.table-dark):not(.table-light) tfoot:not(.table-dark) th {
+                background-color: #a69171;
+                color: white;
+            }
+        </style>
+    @endif
+    
 
 </head>
 <!-- END: Head-->

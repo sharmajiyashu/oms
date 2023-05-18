@@ -48,7 +48,7 @@
                                             <input type="date" class="form-control" name="date_to" value="{{ $date_time['date_to'] }}" />
                                         </div>
                                         <div class="col-md-1">
-                                            <button class="btn btn-success">Fylter</button>
+                                            <button class="btn btn-success">Filter</button>
                                         </div>
                                         <div class="col-md-2"> <input type="text" class="form-control" id="myInput" onkeyup="myFunction()" placeholder="Search..."></div>
                                         <div class="col-md-2"><a href="{{ route('agent.orders.create') }}" class=" btn btn-info btn-gradient round  ">Add Order</a></div>

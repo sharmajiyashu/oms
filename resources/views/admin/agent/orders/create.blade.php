@@ -351,7 +351,7 @@
                                                 <label class="form-label"  for="last-name-column">Status</label>
                                                 <select name="follow_up_type" id="" class="form-select">
                                                     @foreach ($follow_up as $item)
-                                                        <option value="">{{ $item->title }}</option>
+                                                        <option value="{{ $item->title }}">{{ $item->title }}</option>
                                                     @endforeach
                                                 </select>
                                             </div>

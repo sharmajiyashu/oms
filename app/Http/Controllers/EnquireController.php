@@ -30,7 +30,8 @@ class EnquireController extends Controller
      */
     public function create()
     {
-        return view('admin.enquire.create');
+        $follow_up = FollowMaster::where('status','Active')->orderby('title','asc')->get();
+        return view('admin.enquire.create',compact('follow_up'));
     }
 
     /**
@@ -43,7 +44,11 @@ class EnquireController extends Controller
     {
         $data = $request->validated();
         $data['user_id'] = Auth::user()->id;
-        Enquire::create($data);
+        $data['status'] = $request->status;
+        $enquire = Enquire::create($data);
+        if(!empty($request->follow_date) && !empty($request->follow_comment)){
+            EnquiryFollowUp::create(['date' => $request->follow_date ,'note' => $request->follow_comment ,'enquiry_id' => $enquire->id]);  
+        }
         return redirect()->route('agent.enquire.index')->with('success','Enquire add success');
     }
 
