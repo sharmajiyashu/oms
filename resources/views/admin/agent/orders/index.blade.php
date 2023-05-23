@@ -58,6 +58,7 @@
                                             <button class="btn btn-success">Filter</button>
                                         </div>
                                         <div class="col-md-2"> <input type="text" class="form-control" id="myInput" onkeyup="myFunction()" placeholder="Search..."></div>
+                                        <div class="col-md-2"><a href="{{ route('agent.orders.export') }}" class=" btn btn-warning btn-gradient round  ">Export</a></div>
                                         <div class="col-md-2"><a href="{{ route('agent.orders.create') }}" class=" btn btn-info btn-gradient round  ">Add Order</a></div>
                                     </div>
                                 </form>

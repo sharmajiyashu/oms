@@ -180,10 +180,34 @@
                                             </div>
                                         </div>
 
-                                        <div class="col-md-4 col-12">
+                                        <div class="col-md-3 col-12">
+                                            <div class="mb-1">
+                                                <label class="form-label"  for="last-name-column"></label>
+                                                <select class="form-select" id="sh_countary" name="sh_country" onclick="Get_Sh_state()" >
+                                                    <option value="">Choose...</option>
+                                                    @foreach ($country as $item)
+                                                        <option value="{{ $item->name }}">{{ $item->name }}</option>
+                                                    @endforeach
+                                                </select>
+                                            </div>
+                                        </div>
+
+                                        <div class="col-md-3 col-12">
+                                            <div class="mb-1">
+                                                <label class="form-label"  for="last-name-column">State</label>
+                                                <select class="form-select" id="sh_state" name="sh_state" disabled onclick="Get_Sh_city()">
+                                                    <option value="">Choose...</option>
+                                                    @foreach ($states as $item)
+                                                        <option value="{{ $item->name }}">{{ $item->name }}</option>
+                                                    @endforeach
+                                                </select>
+                                            </div>
+                                        </div>
+
+                                        <div class="col-md-3 col-12">
                                             <div class="mb-1">
                                                 <label class="form-label"  for="last-name-column">City</label>
-                                                <select class="form-select" id="sh_city" name="sh_city" >
+                                                <select class="form-select" id="sh_city" name="sh_city" disabled >
                                                     @foreach ($cities as $item)
                                                         <option value="{{ $item->name }}">{{ $item->name }}</option>
                                                     @endforeach
@@ -191,18 +215,9 @@
                                             </div>
                                         </div>
 
-                                        <div class="col-md-4 col-12">
-                                            <div class="mb-1">
-                                                <label class="form-label"  for="last-name-column">State</label>
-                                                <select class="form-select" id="sh_state" name="sh_state" >
-                                                    @foreach ($states as $item)
-                                                        <option value="{{ $item->name }}">{{ $item->name }}</option>
-                                                    @endforeach
-                                                </select>
-                                            </div>
-                                        </div>
                                         
-                                        <div class="col-md-4 col-12">
+                                        
+                                        <div class="col-md-3 col-12">
                                             <div class="mb-1">
                                                 <label class="form-label" for="first-name-column">Zip Code</label>
                                                 <input type="text" id="sh_zip_code" name="sh_zip_code" class="form-control" placeholder="Zip Code" value="{{ old('sh_zip_code') }}" />
@@ -212,36 +227,7 @@
                                         
                                         <h4 class="card-title">Billing Address &nbsp;&nbsp; <input type="checkbox" id="same_as" name="vehicle1" value="Bike" onclick="same_As()" > <span style="font-size: 13px;">same as shipping </span></h4>
 
-                                        <script>
-                                            var same_as = 0;
-                                            function same_As(){
-
-                                                if(same_as == 0){
-                                                    same_as = 1;
-                                                    let sh_city = document.getElementById('sh_city').value;
-                                                    document.getElementById('bl_city').value = sh_city;
-
-                                                    let sh_state = document.getElementById('sh_state').value;
-                                                    document.getElementById('bl_state').value = sh_state;
-
-                                                    let sh_zip_code = document.getElementById('sh_zip_code').value;
-                                                    document.getElementById('bl_zip_code').value = sh_zip_code;
-
-                                                    let sh_address = document.getElementById('sh_address').value;
-                                                    document.getElementById('bl_address').value = sh_address;
-
-
-
-                                                }else{
-                                                    same_as = 0;
-                                                    document.getElementById('bl_city').value = '';
-                                                    document.getElementById('bl_state').value = '';
-                                                    document.getElementById('bl_zip_code').value = '';
-                                                    document.getElementById('bl_address').value = '';
-                                                }   
-
-                                            }
-                                        </script>
+                                       
                                         
 
                                         <div class="col-md-12 col-12">
@@ -251,10 +237,38 @@
                                             </div>
                                         </div>
 
-                                        <div class="col-md-4 col-12">
+                                        <div class="col-md-3 col-12">
+                                            <div class="mb-1">
+                                                <label class="form-label"  for="last-name-column">Country</label>
+                                                <select class="form-select" name="bl_country" id="bl_country" onchange="get_state()">
+                                                    <option value="">Choose...</option>
+                                                    @foreach ($country as $item)
+                                                        <option value="{{ $item->name }}">{{ $item->name }}</option>
+                                                    @endforeach
+                                                </select>
+                                            </div>
+                                        </div>
+
+
+                                        
+                                        <div class="col-md-3 col-12">
+                                            <div class="mb-1">
+                                                <label class="form-label"  for="last-name-column">State</label>
+                                                <select class="form-select" name="bl_state" id="bl_state" disabled onchange="get_city()">
+                                                    <option value="">Choose...</option>
+                                                    @foreach ($states as $item)
+                                                    
+                                                        <option value="{{ $item->name }}">{{ $item->name }}</option>
+                                                    @endforeach
+                                                </select>
+                                            </div>
+                                        </div>
+
+                                        <div class="col-md-3 col-12">
                                             <div class="mb-1">
                                                 <label class="form-label"  for="last-name-column">City</label>
-                                                <select class="form-select" id="bl_city" name="bl_city" >
+                                                <select class="form-select" id="bl_city" name="bl_city" disabled>
+                                                    <option value="">Choose...</option>
                                                     @foreach ($cities as $item)
                                                         <option value="{{ $item->name }}">{{ $item->name }}</option>
                                                     @endforeach
@@ -262,18 +276,9 @@
                                             </div>
                                         </div>
 
-                                        <div class="col-md-4 col-12">
-                                            <div class="mb-1">
-                                                <label class="form-label"  for="last-name-column">State</label>
-                                                <select class="form-select" name="bl_state" id="bl_state">
-                                                    @foreach ($states as $item)
-                                                        <option value="{{ $item->name }}">{{ $item->name }}</option>
-                                                    @endforeach
-                                                </select>
-                                            </div>
-                                        </div>
                                         
-                                        <div class="col-md-4 col-12">
+                                        
+                                        <div class="col-md-3 col-12">
                                             <div class="mb-1">
                                                 <label class="form-label" for="first-name-column">Zip Code</label>
                                                 <input type="text" id="bl_zip_code" name="bl_zip_code" class="form-control" placeholder="Zip Code" value="{{ old('bl_zip_code') }}" />
@@ -317,7 +322,7 @@
                                         <div class="col-md-6 col-12">
                                             <div class="mb-1">
                                                 <label class="form-label" for="first-name-column">Exp</label>
-                                                <input type="date" id="first-name-column" name="card_exp" class="form-control" placeholder="Card Exp" value="{{ old('card_exp') }}" />
+                                                <input type="month" id="" name="card_exp" class="form-control" placeholder="month year" value="{{ old('card_exp') }}" />
                                             </div>
                                         </div>
 
@@ -386,4 +391,159 @@
         </div>
     </div>
     <!-- END: Content-->
+
+    <script>
+                                            
+        function get_state(){
+            let id = $('#bl_country').val();
+            $.ajax({
+                type:'POST',
+                url:"{{ route('get_state') }}",
+                data:{id:id,"_token": "{{ csrf_token() }}",},
+                dataType: 'JSON',
+                success:function(response){
+
+                    $("#bl_state").attr('disabled', false);
+
+                    //alert(response); // show [object, Object]
+
+                    var $select = $('#bl_state');
+
+                    $select.find('option').remove();
+                    $.each(response,function(key, value)
+                    {
+                        $select.append('<option value=' + value.name + '>' + value.name + '</option>'); // return empty
+                    });
+                }
+            });
+
+        }
+        
+    </script>
+
+<script>
+                                            
+    function Get_Sh_state(){
+        let id = $('#sh_countary').val();
+        $.ajax({
+            type:'POST',
+            url:"{{ route('get_state') }}",
+            data:{id:id,"_token": "{{ csrf_token() }}",},
+            dataType: 'JSON',
+            success:function(response){
+
+                $("#sh_state").attr('disabled', false);
+
+                //alert(response); // show [object, Object]
+
+                var $select = $('#sh_state');
+
+                $select.find('option').remove();
+                $.each(response,function(key, value)
+                {
+                    $select.append('<option value=' + value.name + '>' + value.name + '</option>'); // return empty
+                });
+            }
+        });
+
+    }
+    
+</script>
+
+<script>
+    function get_city(){
+        let id = $('#bl_state').val();
+        $.ajax({
+        type:'POST',
+        url:"{{ route('get_city') }}",
+        data:{id:id,"_token": "{{ csrf_token() }}",},
+        dataType: 'JSON',
+            success:function(response){
+
+            $("#bl_city").attr('disabled', false);
+
+            //alert(response); // show [object, Object]
+
+            var $select = $('#bl_city');
+
+            $select.find('option').remove();
+                $.each(response,function(key, value)
+                {
+                    $select.append('<option value=' + value.name + '>' + value.name + '</option>'); // return empty
+                });
+            }
+        });
+
+
+    }
+</script>
+
+<script>
+    function Get_Sh_city(){
+        let id = $('#sh_state').val();
+        $.ajax({
+        type:'POST',
+        url:"{{ route('get_city') }}",
+        data:{id:id,"_token": "{{ csrf_token() }}",},
+        dataType: 'JSON',
+            success:function(response){
+
+            $("#sh_city").attr('disabled', false);
+
+            //alert(response); // show [object, Object]
+
+            var $select = $('#sh_city');
+
+            $select.find('option').remove();
+                $.each(response,function(key, value)
+                {
+                    $select.append('<option value=' + value.name + '>' + value.name + '</option>'); // return empty
+                });
+            }
+        });
+
+
+    }
+</script>
+
+<script>
+    var same_as = 0;
+    function same_As(){
+
+        if(same_as == 0){
+            same_as = 1;
+            let sh_city = document.getElementById('sh_city').value;
+            document.getElementById('bl_city').value = sh_city;
+
+            let sh_city = document.getElementById('sh_country').value;
+            document.getElementById('bl_country').value = sh_city;
+
+            let sh_state = document.getElementById('sh_state').value;
+            document.getElementById('bl_state').value = sh_state;
+
+            let sh_zip_code = document.getElementById('sh_zip_code').value;
+            document.getElementById('bl_zip_code').value = sh_zip_code;
+
+            let sh_address = document.getElementById('sh_address').value;
+            document.getElementById('bl_address').value = sh_address;
+
+            $('#bl_state').append(`<option selected value="${sh_state}">${sh_state}</option>`);
+            $('#bl_city').append(`<option selected value="${sh_city}">${sh_city}</option>`);
+            $('#bl_city').append(`<option selected value="${sh_city}">${sh_city}</option>`);
+
+            $("#bl_state").attr('disabled', false);
+            $("#bl_city").attr('disabled', false);
+
+
+
+        }else{
+            same_as = 0;
+            document.getElementById('bl_city').value = '';
+            document.getElementById('bl_state').value = '';
+            document.getElementById('bl_zip_code').value = '';
+            document.getElementById('bl_address').value = '';
+        }   
+
+    }
+</script>
 @endsection

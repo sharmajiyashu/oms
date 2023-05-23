@@ -36,6 +36,7 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.','middleware' => 'AdminAuth']
     Route::get('follow-up-detail/{id}', [FollowUpController::class, 'show_detail'])->name('follow-up.show-detail');
     Route::post('add-more', [FollowUpController::class, 'add_follow_up'])->name('follow-up.add-more');
     Route::post('add-followup', [EnquireController::class, 'add_follow_up'])->name('enquire.add-followup');
+    Route::get('orders-export', [OrderController::class, 'export'])->name('orders.export');
 });
 
 Route::get('login', function() { return view('admin.login2'); })->name('agent.login');
@@ -49,8 +50,10 @@ Route::group(['prefix' => 'agent', 'as' => 'agent.' ,'middleware'=>'AgentAuth'],
     Route::get('enquires-follow-ups', [EnquireController::class, 'enquires_follow_list'])->name('enquire.follows_ups');
     Route::post('add-more', [FollowUpController::class, 'add_follow_up'])->name('follow-up.add-more');
     Route::post('add-followup', [EnquireController::class, 'add_follow_up'])->name('enquire.add-followup');
+    Route::get('orders-export', [OrderController::class, 'export'])->name('orders.export');
 });
 
-
+Route::post('get_state',[Controller :: class,'get_state'])->name('get_state');
+Route::post('get_city',[Controller :: class,'get_city'])->name('get_city');
 Route::get('logout', [LoginController::class, 'logout'])->name('logout');
 Route::post('check-login', [LoginController::class, 'check_login'])->name('check-login');

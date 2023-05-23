@@ -54,10 +54,22 @@
                                             <label for="">Date to</label>
                                             <input type="date" class="form-control" name="date_to" value="{{ $date_time['date_to'] }}" />
                                         </div>
+                                        <div class="col-md-2">
+                                            <label for=""> Agent</label>
+                                            <select name="agent_id" id="" class="form-select">
+                                                <option value="">(Select Agent)</option>
+                                                @foreach ($agents as $item)
+                                                    <option value="{{ $item->id }}" {{ (isset($date_time['agent_id']) && $date_time['agent_id'] == $item->id) ? 'selected' : '' }} >{{ $item->firstname }}</option>
+                                                @endforeach
+                                            </select>
+                                        </div>
+                                         
                                         <div class="col-md-1">
                                             <button class="btn btn-success">Filter</button>
                                         </div>
                                         <div class="col-md-2"> <input type="text" class="form-control" id="myInput" onkeyup="myFunction()" placeholder="Search..."></div>
+                                        
+                                        <div class="col-md-2"><a href="{{ route('admin.orders.export') }}" class=" btn btn-info btn-gradient round  ">Export</a></div>
                                         {{-- <div class="col-md-2"><a href="{{ route('agent.orders.create') }}" class=" btn btn-info btn-gradient round  ">Add Order</a></div> --}}
                                     </div>
                                 </form>

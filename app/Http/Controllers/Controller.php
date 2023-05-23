@@ -9,6 +9,8 @@ use Illuminate\Foundation\Bus\DispatchesJobs;
 use Illuminate\Foundation\Validation\ValidatesRequests;
 use Illuminate\Routing\Controller as BaseController;
 use Auth;
+use Illuminate\Http\Request;
+use DB;
 
 class Controller extends BaseController
 {
@@ -48,5 +50,20 @@ class Controller extends BaseController
 
         return view('admin.agent.dashboard',compact('total_enquiry','today_enquiry','total_orders','today_orders','total_reject_orders','today_reject_orders'));
     }
+
+    public function get_state(Request $request){
+        $country_id = $request->id;
+        $country = DB::table('countries')->where('name',$country_id)->first();
+        $data = DB::table('states')->where('country_id',$country->id)->orderBy('name','asc')->get(['id','name'])->all();
+        echo json_encode($data);
+    }
+
+    public function get_city(Request $request){
+        $country_id = $request->id;
+        $states = DB::table('states')->where('name',$country_id)->first();
+        $data = DB::table('cities')->where('state_id',$states->id)->orderBy('name','asc')->get(['id','name'])->all();
+        echo json_encode($data);
+    }
+
     
 }

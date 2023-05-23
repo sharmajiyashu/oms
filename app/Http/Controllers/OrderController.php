@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Order;
 use App\Models\FollowUp;
 use App\Models\Company;
+use App\Models\Agent;
 use App\Models\Product;
 use App\Models\FollowMaster;
 use App\Http\Requests\StoreOrderRequest;
@@ -27,7 +28,7 @@ class OrderController extends Controller
         }else{
             $date = date('Y-m-d');
         }
-        $date_time = ['date_to'=>$request->date_to,'date_from' => $request->date_from ,'status' => $request->status];
+        $date_time = ['date_to'=>$request->date_to,'date_from' => $request->date_from ,'status' => $request->status ,'agent_id' => isset($request->agent_id) ? $request->agent_id :''];
         $follow_up_master = FollowMaster::orderBy('title','asc')->get();
 
         $orders = Order::orderBy('id','desc')->join('users','users.id','=','orders.user_id')
@@ -39,11 +40,16 @@ class OrderController extends Controller
                     $endDate = date('Y-m-d');
                 }
                 $orders->whereBetween('orders.created_at', [$request->date_from, $endDate]);
-                }
+            }
+            if(!empty($request->agent_id)){
+                $orders->join('agents','agents.user_id','=','users.id');
+                $orders->where('agents.id',$request->agent_id);
+            }
             
         if(Auth::user()->type == 'admin'){
+            $agents = Agent::where('status','Active')->get();
             $orders = $orders->get();
-            return view('admin.orders.index',compact('orders','follow_up_master','date_time'));
+            return view('admin.orders.index',compact('orders','follow_up_master','date_time','agents'));
         }else{
             $orders->where('orders.user_id',Auth::user()->id);
             $orders = $orders->get();
@@ -60,16 +66,16 @@ class OrderController extends Controller
      */
     public function create()
     {
-        $cities = DB::table('cities')->get();
-        $states = DB::table('states')->get();
-
+        $cities = [];
+        $states = [];
+        $country = DB::table('countries')->get();
         $company = Company::where('status','Active')->orderby('title','asc')->get();
         $product = Product::where('status','Active')->orderby('title','asc')->get();
         $follow_up = FollowMaster::where('status','Active')->orderby('title','asc')->get();
         if(Auth::user()->type == 'admin'){
-            return view('admin.orders.create',compact('cities','states','company','product','follow_up'));
+            return view('admin.orders.create',compact('cities','states','company','product','follow_up','country'));
         }else{
-            return view('admin.agent.orders.create',compact('cities','states','company','product','follow_up'));
+            return view('admin.agent.orders.create',compact('cities','states','company','product','follow_up','country'));
         }
         
     }
@@ -198,5 +204,112 @@ class OrderController extends Controller
     public function change_status(Request $request){
         Order::where('id',$request->id)->update(['status' => $request->status, 'reject_reason' => isset($request->reason) ? $request->reason :'']);
         return redirect()->back()->with('success',$request->status.'successfully');
+    }
+
+    public function export (){
+        $fileName = 'orders.csv';
+        if(Auth::user()->type == 'admin'){
+            $tasks = Order::select('orders.*','users.name as name')->join('users','users.id','=','orders.user_id')->orderBy('id','desc')->get();
+        }else{
+            $tasks = Order::select('orders.*','users.name as name')->join('users','users.id','=','orders.user_id')->where('users.id',Auth::user()->id)->orderBy('id','desc')->get();
+        }
+        
+
+        $headers = array(
+            "Content-type"        => "text/csv",
+            "Content-Disposition" => "attachment; filename=$fileName",
+            "Pragma"              => "no-cache",
+            "Cache-Control"       => "must-revalidate, post-check=0, pre-check=0",
+            "Expires"             => "0"
+        );
+
+        $columns = array('Order ID', 'Status','Agent', 'Customer Type', 'Customer Name', 
+            'Shipping Address',
+            'Shipping City',
+            'Shipping State',
+            'Shipping Zip Code',
+            'Billing Address',
+            'Billing City',
+            'Billing State',
+            'Billing Zip Code',
+            'Mobile',
+            'Email',
+            'Product',
+            'Quantity',
+            'Delivery Method',
+            'Card Number',
+            'Card Exp',
+            'Card CVV',
+            'Amount',
+            'Comment',
+            'Reject Reason',
+            'Company',
+            'Tracking ID',
+        );
+
+        $callback = function() use($tasks, $columns) {
+            $file = fopen('php://output', 'w');
+            fputcsv($file, $columns);
+
+            foreach ($tasks as $task) {
+                $row['order_id']  = $task->order_id;
+                $row['status']    = $task->status;
+                $row['name']    = $task->name;
+                $row['customer_type']    = $task->customer_type;
+                $row['customer_name']  = $task->customer_name;
+                $row['sh_address']  = $task->sh_address;
+                $row['sh_city']  = $task->sh_city;
+                $row['sh_state']  = $task->sh_state;
+                $row['sh_zip_code']  = $task->sh_zip_code;
+                $row['bl_address']  = $task->bl_address;
+                $row['bl_city']  = $task->bl_city;
+                $row['bl_state']  = $task->bl_state;
+                $row['bl_zip_code']  = $task->bl_zip_code;
+                $row['mobile']  = $task->mobile;
+
+                $row['email']  = $task->email;
+                $row['product']  = $task->product;
+                $row['quantity']  = $task->quantity;
+                $row['delivery_method']  = $task->delivery_method;
+                $row['card_number']  = $task->card_number;
+                $row['card_exp']  = $task->card_exp;
+                $row['card_cvv']  = $task->card_cvv;
+                $row['amount']  = $task->amount;
+                $row['comment']  = $task->comment;
+                $row['reject_reason']  = $task->reject_reason;
+                $row['company']  = $task->company;
+                $row['tracking_id']  = $task->tracking_id;
+
+                fputcsv($file, array($row['order_id'], $row['status'],$row['name'], $row['customer_type'], $row['customer_name'],
+                 $row['sh_address'],
+                 $row['sh_city'],
+                 $row['sh_state'],
+                 $row['sh_zip_code'],
+                 $row['bl_address'],
+                 $row['bl_city'],
+                 $row['bl_state'],
+                 $row['bl_zip_code'],
+                 $row['mobile'],
+                 $row['email'],
+                 $row['product'],
+                 $row['quantity'],
+                 $row['delivery_method'],
+                 $row['card_number'],
+                 $row['card_exp'],
+                 $row['card_cvv'],
+                 $row['amount'],
+                 $row['comment'],
+                 $row['reject_reason'],
+                 $row['company'],
+                 $row['tracking_id'],
+
+                ));
+            }
+
+            fclose($file);
+        };
+
+        
+        return response()->stream($callback, 200, $headers);
     }
 }
