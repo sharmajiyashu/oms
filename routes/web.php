@@ -43,6 +43,7 @@ Route::get('login', function() { return view('admin.login2'); })->name('agent.lo
 
 Route::group(['prefix' => 'agent', 'as' => 'agent.' ,'middleware'=>'AgentAuth'], function () {
     Route::get('/', [Controller::class,'agent_dashboard'])->name('dashboard');
+    Route::get('dashboard', [Controller::class,'agent_dashboard'])->name('dashboard');
     Route::resource('orders',OrderController::class);
     Route::resource('follow-up',FollowUpController::class);
     Route::resource('enquire',EnquireController::class);
