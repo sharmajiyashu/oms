@@ -9,7 +9,7 @@
     <meta name="description" content="Vuexy admin is super flexible, powerful, clean &amp; modern responsive bootstrap 4 admin template with unlimited possibilities.">
     <meta name="keywords" content="admin template, Vuexy admin template, dashboard template, flat admin template, responsive admin template, web app">
     <meta name="author" content="PIXINVENT">
-    <title>Login Page - Agent</title>
+    <title>Login Page - AHD</title>
     <link rel="apple-touch-icon" href="{{ asset('public/admin/app-assets/images/ico/apple-icon-120.png')}}">
     <link rel="shortcut icon" type="image/x-icon" href="{{ asset('public/admin/app-assets/images/ico/favicon.ico')}}">
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,300;0,400;0,500;0,600;1,400;1,500;1,600" rel="stylesheet">
@@ -55,7 +55,7 @@
                     <div class="auth-inner row m-0">
                         <!-- Brand logo--><a class="brand-logo" href="index.html">
                             
-                            <h2 class="brand-text text-primary ms-1">Agent</h2>
+                            <h2 class="brand-text text-primary ms-1">AHD Customer Relationship Management</h2>
                         </a>
                         <!-- /Brand logo-->
                         <!-- Left Text-->
@@ -66,7 +66,7 @@
                         <!-- Login-->
                         <div class="d-flex col-lg-4 align-items-center auth-bg px-2 p-lg-5">
                             <div class="col-12 col-sm-8 col-md-6 col-lg-12 px-xl-2 mx-auto">
-                                <h2 class="card-title fw-bold mb-1">Welcome to Agent! 👋</h2>
+                                <h2 class="card-title fw-bold mb-1">Welcome to AHD Portal! 👋</h2>
                                 @if ($errors->any())
                                     @foreach ($errors->all() as $error)
                                     <div class="alert alert-danger alert-dismissible fade show" role="alert">

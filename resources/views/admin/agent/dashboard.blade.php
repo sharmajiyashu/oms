@@ -1,10 +1,5 @@
-
-
-
 @extends('admin.layouts.app')
-
 @section('content')
-
 
 <!-- BEGIN: Content-->
 <div class="app-content content ">
@@ -40,7 +35,7 @@
                                                 </div>
                                                 <div class="my-auto">
                                                     <h4 class="fw-bolder mb-0">{{ $today_orders }}</h4>
-                                                    <p class="card-text font-small-3 mb-0">Today Orders</p>
+                                                    <p class="card-text font-small-3 mb-0"><a href="{{ route('agent.orders.index') }}">Today Orders</a></p>
                                                 </div>
                                             </div>
                                         </div>
@@ -55,7 +50,7 @@
                                                 </div>
                                                 <div class="my-auto">
                                                     <h4 class="fw-bolder mb-0">{{ $today_reject_orders }}</h4>
-                                                    <p class="card-text font-small-3 mb-0">Today Rejected</p>
+                                                    <p class="card-text font-small-3 mb-0"><a href="{{ route('agent.orders.index') }}">Today Rejected</a></p>
                                                 </div>
                                             </div>
                                         </div>
@@ -69,7 +64,7 @@
                                                 </div>
                                                 <div class="my-auto">
                                                     <h4 class="fw-bolder mb-0">{{ $today_enquiry }}</h4>
-                                                    <p class="card-text font-small-3 mb-0">Today Enquire</p>
+                                                    <p class="card-text font-small-3 mb-0"><a href="{{ route('agent.enquire.index') }}">Today Enquire</a></p>
                                                 </div>
                                             </div>
                                         </div>
@@ -98,7 +93,7 @@
                                                 </div>
                                                 <div class="my-auto">
                                                     <h4 class="fw-bolder mb-0">{{ $total_orders }}</h4>
-                                                    <p class="card-text font-small-3 mb-0">Total Orders</p>
+                                                    <p class="card-text font-small-3 mb-0"><a href="{{ route('agent.orders.index') }}">Total Orders</a></p>
                                                 </div>
                                             </div>
                                         </div>
@@ -112,7 +107,7 @@
                                                 </div>
                                                 <div class="my-auto">
                                                     <h4 class="fw-bolder mb-0">{{ $total_reject_orders }}</h4>
-                                                    <p class="card-text font-small-3 mb-0"> Rejected Orders</p>
+                                                    <p class="card-text font-small-3 mb-0"> <a href="{{ route('agent.orders.index') }}">Rejected Orders</a></p>
                                                 </div>
                                             </div>
                                         </div>
@@ -126,7 +121,7 @@
                                                 </div>
                                                 <div class="my-auto">
                                                     <h4 class="fw-bolder mb-0">{{ $total_enquiry }}</h4>
-                                                    <p class="card-text font-small-3 mb-0">Total Enquire</p>
+                                                    <p class="card-text font-small-3 mb-0"><a href="{{ route('agent.enquire.index') }}">Total Enquire</a></p>
                                                 </div>
                                             </div>
                                         </div>

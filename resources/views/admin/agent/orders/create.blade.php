@@ -68,17 +68,13 @@
 
                                         <h4>Basic Details</h4>
 
-                                        <div class="col-md-6 col-12">
-                                            <div class="mb-1">
-                                                <label class="form-label" for="first-name-column">Customer Name</label>
-                                                <input type="text" id="first-name-column" name="customer_name" class="form-control" placeholder="Customer Name" value="{{ old('customer_name') }}" />
-                                            </div>
-                                        </div>
+                                        
 
-                                        <div class="col-md-3 col-12">
+                                        <div class="col-md-6 col-12">
                                             <div class="mb-1">
                                                 <label class="form-label"  for="last-name-column">Company</label>
                                                 <select class="form-select" name="company" id="basicSelect">
+                                                    <option value="">(Select Company)</option>
                                                     @foreach ($company as $item)
                                                         <option value="{{ $item->title }}">{{ $item->title }}</option>
                                                     @endforeach
@@ -86,10 +82,11 @@
                                             </div>
                                         </div>
 
-                                        <div class="col-md-3 col-12">
+                                        <div class="col-md-6 col-12">
                                             <div class="mb-1">
                                                 <label class="form-label"  for="last-name-column">Customer Type</label>
                                                 <select class="form-select" name="customer_type" id="">
+                                                    <option value="">(Select Customer Type)</option>
                                                     @foreach (config('constant.customer_type') as $item)
                                                     <option value="{{ $item }}">{{ $item }}</option>
                                                 @endforeach
@@ -104,6 +101,7 @@
                                                     <div class="mb-1">
                                                         <label class="form-label"  >Product</label>
                                                         <select class="form-select" name="product[]" >
+                                                            <option value="">(Select Product)</option>
                                                             @foreach ($product as $item)
                                                                 <option value="{{ $item->title }}">{{ $item->title }}</option>
                                                             @endforeach
@@ -135,6 +133,7 @@
                                                         <div class="mb-1">
                                                             <label class="form-label"  for="last-name-column">Product</label>
                                                             <select class="form-select" name="product[]" id="basicSelect">
+                                                                <option value="">(Select Product)</option>
                                                                 @foreach ($product as $item)
                                                                     <option value="{{ $item->title }}">{{ $item->title }}</option>
                                                                 @endforeach
@@ -163,6 +162,7 @@
                                             <div class="mb-1">
                                                 <label class="form-label"  for="last-name-column">   Delivery Method</label>
                                                 <select class="form-select" name="delivery_method" id="basicSelect">
+                                                    <option value="">(Select Delivery Method)</option>
                                                     <option value="Express">Express</option>
                                                     <option value="Normal">Normal</option>
                                                 </select>
@@ -172,6 +172,12 @@
 
                                         <h4 class="card-title">Shipping Details </h4>
                                         
+                                        <div class="col-md-12 col-12">
+                                            <div class="mb-1">
+                                                <label class="form-label" for="first-name-column">Customer Name</label>
+                                                <input type="text" id="first-name-column" name="customer_name" class="form-control" placeholder="Customer Name" value="{{ old('customer_name') }}" />
+                                            </div>
+                                        </div>
 
                                         <div class="col-md-12 col-12">
                                             <div class="mb-1">
@@ -182,8 +188,8 @@
 
                                         <div class="col-md-3 col-12">
                                             <div class="mb-1">
-                                                <label class="form-label"  for="last-name-column"></label>
-                                                <select class="form-select" id="sh_countary" name="sh_country" onclick="Get_Sh_state()" >
+                                                <label class="form-label"  for="last-name-column">Countary</label>
+                                                <select class="form-select" id="sh_country" name="sh_country" onclick="Get_Sh_state()" >
                                                     <option value="">Choose...</option>
                                                     @foreach ($country as $item)
                                                         <option value="{{ $item->name }}">{{ $item->name }}</option>
@@ -291,14 +297,14 @@
                                         <div class="col-md-4 col-12">
                                             <div class="mb-1">
                                                 <label class="form-label" for="first-name-column">Mobile</label>
-                                                <input type="text" id="first-name-column" name="mobile" class="form-control" placeholder="Mobile" value="{{ old('mobile') }}" />
+                                                <input type="text" id="first-name-column" name="mobile" class="form-control" placeholder="Mobile" value="{{ old('mobile') }}" pattern="[1-9]{1}[0-9]{9}" maxlength="10"/>
                                             </div>
                                         </div>
                                         
                                         <div class="col-md-4 col-12">
                                             <div class="mb-1">
                                                 <label class="form-label" for="first-name-column">Cellphone</label>
-                                                <input type="text" id="first-name-column" name="cellphone" class="form-control" placeholder="Cellphone" value="{{ old('cellphone') }}" />
+                                                <input type="text" id="first-name-column" name="cellphone" pattern="[1-9]{1}[0-9]{9}" class="form-control" placeholder="Cellphone" value="{{ old('cellphone') }}" maxlength="10" />
                                             </div>
                                         </div>
 
@@ -315,7 +321,7 @@
                                         <div class="col-md-12 col-12">
                                             <div class="mb-1">
                                                 <label class="form-label" for="first-name-column">Card Number</label>
-                                                <input type="text" id="first-name-column" name="card_number" class="form-control" placeholder="Card Number" value="{{ old('card_number') }}" />
+                                                <input type="number" id="first-name-column" name="card_number" class="form-control" placeholder="Card Number" value="{{ old('card_number') }}" maxlength="16"/>
                                             </div>
                                         </div>
 
@@ -329,7 +335,7 @@
                                         <div class="col-md-6 col-12">
                                             <div class="mb-1">
                                                 <label class="form-label" for="first-name-column">Cvv</label>
-                                                <input type="number" id="first-name-column" name="card_cvv" class="form-control" placeholder="CVV" value="{{ old('card_cvv') }}" />
+                                                <input type="number" id="first-name-column" name="card_cvv" class="form-control" placeholder="CVV" value="{{ old('card_cvv') }}"  maxlength="3" />
                                             </div>
                                         </div>
 
@@ -424,7 +430,7 @@
 <script>
                                             
     function Get_Sh_state(){
-        let id = $('#sh_countary').val();
+        let id = $('#sh_country').val();
         $.ajax({
             type:'POST',
             url:"{{ route('get_state') }}",
@@ -508,28 +514,27 @@
 
 <script>
     var same_as = 0;
+
     function same_As(){
 
+
         if(same_as == 0){
+
+
             same_as = 1;
-            let sh_city = document.getElementById('sh_city').value;
-            document.getElementById('bl_city').value = sh_city;
 
-            let sh_city = document.getElementById('sh_country').value;
-            document.getElementById('bl_country').value = sh_city;
-
-            let sh_state = document.getElementById('sh_state').value;
-            document.getElementById('bl_state').value = sh_state;
-
-            let sh_zip_code = document.getElementById('sh_zip_code').value;
-            document.getElementById('bl_zip_code').value = sh_zip_code;
-
-            let sh_address = document.getElementById('sh_address').value;
-            document.getElementById('bl_address').value = sh_address;
+            var sh_state = $('#sh_state').val();
+            var sh_city = $('#sh_city').val();
+            var sh_country = $('#sh_country').val();
+            var sh_zip_code = $('#sh_zip_code').val();
+            var sh_address = $('#sh_address').val();
+            
 
             $('#bl_state').append(`<option selected value="${sh_state}">${sh_state}</option>`);
             $('#bl_city').append(`<option selected value="${sh_city}">${sh_city}</option>`);
-            $('#bl_city').append(`<option selected value="${sh_city}">${sh_city}</option>`);
+            $('#bl_country').append(`<option selected value="${sh_country}">${sh_country}</option>`);
+            $('#bl_zip_code').val(sh_zip_code);
+            $('#bl_address').val(sh_address);
 
             $("#bl_state").attr('disabled', false);
             $("#bl_city").attr('disabled', false);

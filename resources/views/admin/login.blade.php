@@ -72,7 +72,7 @@
                                 @endif
 
 
-                                <h4 class="card-title mb-1">Welcome to Agent! 👋</h4>
+                                <h4 class="card-title mb-1">Welcome to AHD Portal! 👋</h4>
                                 <p class="card-text mb-2">Please sign-in to your account by using email or password</p>
 
                                 <form class="auth-login-form mt-2" action="{{route('check-login')}}" method="POST">

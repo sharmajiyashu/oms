@@ -2,6 +2,7 @@
     <div class="navbar-container d-flex content">
 
     <div class="bookmark-wrapper d-flex align-items-center">
+        <h5><strong>AHD Customer Relationship Management</strong> </h5>
             <ul class="nav navbar-nav d-xl-none">
                 <li class="nav-item"><a class="nav-link menu-toggle" href="#"><i class="ficon" data-feather="menu"></i></a></li>
             </ul>

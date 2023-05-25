@@ -37,7 +37,7 @@ class Controller extends BaseController
         $total_reject_orders = Order::where('status','Reject')->count();
         $today_reject_orders = Order::where('status','Reject')->whereDay('created_at', now()->day)->count();
 
-        return view('admin.agent.dashboard',compact('total_enquiry','today_enquiry','total_orders','today_orders','total_reject_orders','today_reject_orders'));
+        return view('admin.dashboard',compact('total_enquiry','today_enquiry','total_orders','today_orders','total_reject_orders','today_reject_orders'));
     }
 
     public function agent_dashboard(){

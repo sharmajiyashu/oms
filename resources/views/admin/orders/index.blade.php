@@ -114,13 +114,13 @@
                                                                     <div class="row">
                                                                         <div class="col-md-12" style="font-size: 15px;">
                                                                             @if ($val->status == 'Reject')
-                                                                            <span class="fw-bolder text-danger">Reject</span>
+                                                                            <span class="fw-bolder text-danger">Declined</span>
                                                                             <a href="#" data-bs-toggle="tooltip" data-bs-placement="top" title="{{ $val->reject_reason }}"><i data-feather="eye" class="me-50"></i></a>
                                                                             @elseif($val->status == 'Pending')
                                                                                 <span class="fw-bolder text-warning">Pending</span>
                                                                             
                                                                             @elseif($val->status == 'Accept')
-                                                                                <strong class="text-success">Tracking Id:</strong> 
+                                                                                <strong class="text-success">Approved:</strong> 
                                                                                 <span class="fw-bolder ">{{ $val->tracking_id }}</span>
                                                                             @endif
                                                                         </div>
@@ -229,7 +229,7 @@
                                                 
                                                     @if ($val->status == 'Pending')
                                                         <button type="button" class=" btn-relief-danger" data-bs-toggle="modal" data-bs-target="#Reject{{ $val->id }}" style="border: coral;">
-                                                            Reject
+                                                            Decline
                                                         </button>
                                                         <div class="modal fade text-start modal-danger" id="Reject{{$val->id}}" tabindex="-1" aria-labelledby="myModalLabel160" aria-hidden="true">
                                                             <div class="modal-dialog modal-dialog-centered">
@@ -261,7 +261,7 @@
                                                                 @csrf
                                                                 <input type="hidden" name="id" value="{{ $val->id }}">
                                                                 <input type="hidden" name="status" value="Accept">
-                                                                <button class=" btn-relief-success" style="border: coral;">Accept</button>
+                                                                <button class=" btn-relief-success" style="border: coral;">Approve</button>
                                                             </form>
                                                         </div>
                                                         
@@ -270,14 +270,14 @@
                                                         
                                                         
                                                         @if ($val->status == 'Reject')
-                                                        <span class="fw-bolder text-danger">Reject</span>
+                                                        <span class="fw-bolder text-danger">Declined</span>
                                                         <a href="#" data-bs-toggle="tooltip" data-bs-placement="top" title="{{ $val->reject_reason }}"><i data-feather="eye" class="me-50"></i></a>
 
                                                         @endif
 
                                                         @if ($val->status == 'Accept')
-                                                            <strong class="text-success">Tracking Id:</strong> <br>
-                                                            <span >{{ $val->tracking_id }}</span>
+                                                            <strong class="text-success">Approved:</strong> <br>
+                                                            <span >{{ $val->tracking_id }}</span><br>
                                                         <button type="button" class=" btn-relief-info" data-bs-toggle="modal" data-bs-target="#primary{{ $val->id }}" style="border: coral;">
                                                             Update
                                                         </button>
