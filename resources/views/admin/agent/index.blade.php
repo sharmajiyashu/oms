@@ -69,7 +69,7 @@
                                                 <th>Sr.no</th>
                                                 <th>First Name</th>
                                                 <th>Last Name</th>
-                                                <th>Email</th>
+                                                <th>Username</th>
                                                 <th>mobile</th>
                                                 <th>Status</th>
                                                 {{-- <th>Address</th> --}}

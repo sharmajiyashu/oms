@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Enquire;
 use App\Models\EnquiryFollowUp;
 use App\Models\FollowMaster;
+use App\Models\Agent;
 use App\Http\Requests\StoreEnquireRequest;
 use App\Http\Requests\UpdateEnquireRequest;
 use Illuminate\Http\Request;
@@ -17,10 +18,37 @@ class EnquireController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        $data = Enquire::orderBy('id','desc')->get();
-        return view('admin.enquire.index',compact('data'));
+        
+        $data = Enquire::orderBy('id','desc')->join('users','users.id','=','enquires.user_id')->select('enquires.*','users.name');
+        if(Auth::user()->type == "agent"){
+            $data->where('user_id',Auth::user()->id);
+        }
+        if(!empty($request->date_from)){
+            if(!empty($request->date_to)){
+                $endDate = $request->date_to;
+            }else{
+                $endDate = date('Y-m-d');
+            }
+            $data->whereBetween('enquires.created_at', [$request->date_from, $endDate]);
+        }
+
+        if(!empty($request->agent_id)){
+            $data->join('agents','agents.user_id','=','users.id');
+            $data->where('agents.id',$request->agent_id);
+        }
+        
+        $data = $data->get();
+
+        if(!empty($request->date)){
+            $date = $request->date;
+        }else{
+            $date = date('Y-m-d');
+        }
+        $agents = Agent::where('status','Active')->get();
+        $date_time = ['date_to'=>$request->date_to,'date_from' => $request->date_from ,'status' => $request->status ,'agent_id' => isset($request->agent_id) ? $request->agent_id :''];
+        return view('admin.enquire.index',compact('data','date_time','agents'));
     }
 
     /**

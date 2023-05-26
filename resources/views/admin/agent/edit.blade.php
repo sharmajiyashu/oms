@@ -80,8 +80,8 @@
 
                                         <div class="col-md-6 col-12">
                                             <div class="mb-1">
-                                                <label class="form-label" for="first-name-column">Email</label>
-                                                <input type="email" id="first-name-column" name="email" class="form-control" placeholder="Email" value="{{ $agent->email }}" />
+                                                <label class="form-label" for="first-name-column">Username</label>
+                                                <input type="text" readonly id="first-name-column" name="email" class="form-control" placeholder="Email" value="{{ $agent->email }}" />
                                             </div>
                                         </div>
 

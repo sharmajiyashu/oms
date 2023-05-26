@@ -37,12 +37,41 @@
                     <div class="row">
                         <div class="col-12">
                             <div class="card">
-                                <div class="card-header border-bottom">
-                                    <h4 class="card-title">List</h4>
-                                    @if (Auth::user()->type == 'agent')
-                                        <a href="{{url('agent/enquire/create')}}" class=" btn btn-info btn-gradient round  ">Add</a>
-                                    @endif
-                                </div>
+                                <form action="" method="get">
+                                    @csrf
+                                    <div class="row border-bottom card-header">
+                                        <div class="col-md-2">
+                                            <label for="">Date From</label>
+                                            <input type="date" class="form-control" name="date_from" value="{{ $date_time['date_from'] }}" />
+                                        </div>
+                                        <div class="col-md-2">
+                                            <label for="">Date to</label>
+                                            <input type="date" class="form-control" name="date_to" value="{{ $date_time['date_to'] }}" />
+                                        </div>
+                                        <div class="col-md-1">
+                                            <button class="btn btn-success">Filter</button>
+                                        </div>
+                                        @if (Auth::user()->type == 'admin')
+                                            <div class="col-md-2">
+                                                <label for=""> Agent</label>
+                                                <select name="agent_id" id="" class="form-select">
+                                                    <option value="">(Select Agent)</option>
+                                                    @foreach ($agents as $item)
+                                                        <option value="{{ $item->id }}" {{ (isset($date_time['agent_id']) && $date_time['agent_id'] == $item->id) ? 'selected' : '' }} >{{ $item->firstname }}</option>
+                                                    @endforeach
+                                                </select>
+                                            </div>
+                                        @endif
+                                        <div class="col-md-2"> <input type="text" class="form-control" id="myInput" onkeyup="myFunction()" placeholder="Search..."></div>
+                                        
+                                        @if (Auth::user()->type == 'agent')
+                                            <div class="col-md-2">
+                                                <a href="{{url('agent/enquire/create')}}" class=" btn btn-info btn-gradient round  ">Add</a>
+                                            </div>
+                                        @endif
+                                        
+                                    </div>
+                                </form>
                                 <div class="card-datatable">
                                     <table class="datatables-ajax table table-responsive">
                                         <thead>
@@ -52,10 +81,13 @@
                                                 <th>Mobile</th>
                                                 <th>Email</th>
                                                 <th>Status</th>
+                                                @if (Auth::user()->type == 'admin')
+                                                    <th>Agent</th>
+                                                @endif
                                                 <th>Created Date</th>
                                             </tr>
                                         </thead>
-                                        <tbody>
+                                        <tbody id="myTable">
                                             @php  $i=1; @endphp
                                             @foreach($data as $key => $val)
                                             <tr>
@@ -69,7 +101,11 @@
                                                 <td>{{ $val->mobile }}</td>
                                                 <td>{{ $val->email }}</td>
                                                 <td>{{ $val->status }}</td>
-                                                <td>{{ $val->created_at }}</td>
+                                                @if (Auth::user()->type == 'admin')
+                                                    <td><strong>{{ $val->name }}</strong></td>
+                                                @endif
+                                                
+                                                <td>{{ date('d-M-y H:i:s',strtotime($val->created_at)) }}</td>
                                                 {{-- <td>
                                                     <div class="dropdown">
                                                         <button type="button" class="btn btn-sm dropdown-toggle hide-arrow py-0" data-bs-toggle="dropdown">
@@ -107,38 +143,29 @@
             </div>
         </div>
     </div>
-    <!-- END: Content-->
-    <!-- END: Content-->
 
-
-    <!-- BEGIN: Page Vendor JS-->
-
-
-    <!-- <script src="{{ asset('public/admin/app-assets/vendors/js/tables/datatable/jquery.dataTables.min.js')}}"></script>
-    <script src="{{ asset('public/admin/app-assets/vendors/js/tables/datatable/dataTables.bootstrap5.min.js')}}"></script>
-    <script src="{{ asset('public/admin/app-assets/vendors/js/tables/datatable/dataTables.responsive.min.js')}}"></script>
-    <script src="{{ asset('public/admin/app-assets/vendors/js/tables/datatable/responsive.bootstrap5.js')}}"></script>
-    <script src="{{ asset('public/admin/app-assets/vendors/js/pickers/flatpickr/flatpickr.min.js')}}"></script> -->
-
-
-    <script src="{{ asset('public/admin/app-assets/vendors/js/tables/datatable/jquery.dataTables.min.js') }}"></script>
-    <script src="{{ asset('public/admin/app-assets/vendors/js/tables/datatable/dataTables.bootstrap5.min.js') }}"></script>
-    <script src="{{ asset('public/admin/app-assets/vendors/js/tables/datatable/dataTables.responsive.min.js') }}"></script>
-    <script src="{{ asset('public/admin/app-assets/vendors/js/tables/datatable/responsive.bootstrap5.min.js') }}"></script>
-    <script src="{{ asset('public/admin/app-assets/vendors/js/tables/datatable/datatables.checkboxes.min.js') }}"></script>
-    <script src="{{ asset('public/admin/app-assets/vendors/js/tables/datatable/datatables.buttons.min.js') }}"></script>
-    <script src="{{ asset('public/admin/app-assets/vendors/js/tables/datatable/jszip.min.js') }}"></script>
-    <script src="{{ asset('public/admin/app-assets/vendors/js/tables/datatable/pdfUser.min.js') }}"></script>
-    <script src="{{ asset('public/admin/app-assets/vendors/js/tables/datatable/vfs_fonts.js') }}"></script>
-    <script src="{{ asset('public/admin/app-assets/vendors/js/tables/datatable/buttons.html5.min.js') }}"></script>
-    <script src="{{ asset('public/admin/app-assets/vendors/js/tables/datatable/buttons.print.min.js') }}"></script>
-    <script src="{{ asset('public/admin/app-assets/vendors/js/tables/datatable/dataTables.rowGroup.min.js') }}"></script>
-
-
-    <!-- END: Page Vendor JS-->
-
-    <!-- BEGIN: Page JS-->
-    <script src="{{ asset('public/js/table-datatables-advanced.js')}}"></script>
-    <!-- END: Page JS-->
+    <script>
+        function myFunction() {
+            var input, filter, found, table, tr, td, i, j;
+            input = document.getElementById("myInput");
+            filter = input.value.toUpperCase();
+            table = document.getElementById("myTable");
+            tr = table.getElementsByTagName("tr");
+            for (i = 0; i < tr.length; i++) {
+                td = tr[i].getElementsByTagName("td");
+                for (j = 0; j < td.length; j++) {
+                    if (td[j].innerHTML.toUpperCase().indexOf(filter) > -1) {
+                        found = true;
+                    }
+                }
+                if (found) {
+                    tr[i].style.display = "";
+                    found = false;  
+                } else {
+                    tr[i].style.display = "none";
+                }
+            }
+        }
+    </script>
 
 @endsection

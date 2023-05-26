@@ -70,7 +70,7 @@
 
                                         
 
-                                        <div class="col-md-6 col-12">
+                                        <div class="col-md-4 col-12">
                                             <div class="mb-1">
                                                 <label class="form-label"  for="last-name-column">Company</label>
                                                 <select class="form-select" name="company" id="basicSelect">
@@ -82,7 +82,7 @@
                                             </div>
                                         </div>
 
-                                        <div class="col-md-6 col-12">
+                                        <div class="col-md-4 col-12">
                                             <div class="mb-1">
                                                 <label class="form-label"  for="last-name-column">Customer Type</label>
                                                 <select class="form-select" name="customer_type" id="">
@@ -93,72 +93,16 @@
                                                 </select>
                                             </div>
                                         </div>
-
-                                        <div id="append_product" class="col-md-12">
-
-                                            <div class="row">   
-                                                <div class="col-md-6 col-12">
-                                                    <div class="mb-1">
-                                                        <label class="form-label"  >Product</label>
-                                                        <select class="form-select" name="product[]" >
-                                                            <option value="">(Select Product)</option>
-                                                            @foreach ($product as $item)
-                                                                <option value="{{ $item->title }}">{{ $item->title }}</option>
-                                                            @endforeach
-                                                        </select>
-                                                    </div>
-                                                </div>
-    
-                                                <div class="col-md-6 col-12">
-                                                    <div class="mb-1">
-                                                        <label class="form-label" >Quantity</label>
-                                                        <input type="number"  name="quantity[]" class="form-control" placeholder="Customer Name" value="{{ old('customer_name') }}" />
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-
-                                        <div>
-                                            <div class="mb-1">
-                                                <a href="#" class="" onclick="Append_product()">Add More Product</a>
-                                            </div>    
-                                        </div>
-
-
-                                        <script>
-                                            function Append_product(){
-                                                var div = document.getElementById('append_product');
-                                                div.innerHTML += `<div class="row">   
-                                                    <div class="col-md-6 col-12">
-                                                        <div class="mb-1">
-                                                            <label class="form-label"  for="last-name-column">Product</label>
-                                                            <select class="form-select" name="product[]" id="basicSelect">
-                                                                <option value="">(Select Product)</option>
-                                                                @foreach ($product as $item)
-                                                                    <option value="{{ $item->title }}">{{ $item->title }}</option>
-                                                                @endforeach
-                                                            </select>
-                                                        </div>
-                                                    </div>
-        
-                                                    <div class="col-md-6 col-12">
-                                                        <div class="mb-1">
-                                                            <label class="form-label" for="first-name-column">Quantity</label>
-                                                            <input type="number" id="first-name-column" name="quantity[]" class="form-control" placeholder="Customer Name" value="{{ old('customer_name') }}" />
-                                                        </div>
-                                                    </div>
-                                                </div>`;
-                                            }
-                                        </script>
                                         
-                                        <div class="col-md-6 col-12">
+                                        
+                                        {{-- <div class="col-md-6 col-12">
                                             <div class="mb-1">
                                                 <label class="form-label" for="exampleFormControlTextarea1">Amount</label>
                                                 <input type="number" id="first-name-column" name="amount" class="form-control" placeholder="Amount" value="{{ old('amount') }}" />
                                             </div>
-                                        </div>
+                                        </div> --}}
 
-                                        <div class="col-md-6 col-12">
+                                        <div class="col-md-4 col-12">
                                             <div class="mb-1">
                                                 <label class="form-label"  for="last-name-column">   Delivery Method</label>
                                                 <select class="form-select" name="delivery_method" id="basicSelect">
@@ -170,7 +114,7 @@
                                         </div>
 
 
-                                        <h4 class="card-title">Shipping Details </h4>
+                                        <h4 class="card-title">Customer Detail </h4>
                                         
                                         <div class="col-md-12 col-12">
                                             <div class="mb-1">
@@ -230,10 +174,45 @@
                                             </div>
                                         </div>
 
-                                        
-                                        <h4 class="card-title">Billing Address &nbsp;&nbsp; <input type="checkbox" id="same_as" name="vehicle1" value="Bike" onclick="same_As()" > <span style="font-size: 13px;">same as shipping </span></h4>
+                                        <div id="append_product" class="col-md-12">
 
-                                       
+                                            <div class="row">   
+                                                <div class="col-md-4 col-12">
+                                                    <div class="mb-1">
+                                                        <label class="form-label"  >Product</label>
+                                                        <select class="form-select" name="product[]" >
+                                                            <option value="">(Select Product)</option>
+                                                            @foreach ($product as $item)
+                                                                <option value="{{ $item->title }}">{{ $item->title }}</option>
+                                                            @endforeach
+                                                        </select>
+                                                    </div>
+                                                </div>
+    
+                                                <div class="col-md-4 col-12">
+                                                    <div class="mb-1">
+                                                        <label class="form-label" >Quantity</label>
+                                                        <input type="number"  name="quantity[]" class="form-control" placeholder="Quantity" value="{{ old('customer_name') }}" />
+                                                    </div>
+                                                </div>
+
+                                                <div class="col-md-4 col-12">
+                                                    <div class="mb-1">
+                                                        <label class="form-label" >Amount</label>
+                                                        <input type="number"  name="amount[]" class="form-control" placeholder="Amount" value="{{ old('amount') }}" />
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div>
+                                            <div class="mb-1">
+                                                <a href="#" class="" onclick="Append_product()">Add More Product</a>
+                                            </div>    
+                                        </div>
+
+                                        
+                                        <h4 class="card-title">Billing Address &nbsp;&nbsp; <input type="checkbox" id="same_as" name="vehicle1" value="Bike" onclick="same_As()" > <span style="font-size: 13px;">Same As Customer Address  </span></h4>
                                         
 
                                         <div class="col-md-12 col-12">
@@ -549,6 +528,39 @@
             document.getElementById('bl_address').value = '';
         }   
 
+    }
+</script>
+
+<script>
+    function Append_product(){
+
+        $( "#append_product" ).append( `<div class="row">   
+                <div class="col-md-4 col-12">
+                    <div class="mb-1">
+                        <label class="form-label"  >Product</label>
+                        <select class="form-select" name="product[]" >
+                            <option value="">(Select Product)</option>
+                            @foreach ($product as $item)
+                                <option value="{{ $item->title }}">{{ $item->title }}</option>
+                            @endforeach
+                        </select>
+                    </div>
+                </div>
+
+                <div class="col-md-4 col-12">
+                    <div class="mb-1">
+                        <label class="form-label" >Quantity</label>
+                        <input type="number"  name="quantity[]" class="form-control" placeholder="Quantity" value="{{ old('customer_name') }}" />
+                    </div>
+                </div>
+
+                <div class="col-md-4 col-12">
+                    <div class="mb-1">
+                        <label class="form-label" >Amount</label>
+                        <input type="number"  name="amount[]" class="form-control" placeholder="Amount" value="{{ old('amount') }}" />
+                    </div>
+                </div>
+            </div>` );
     }
 </script>
 @endsection

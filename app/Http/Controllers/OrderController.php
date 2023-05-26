@@ -87,12 +87,19 @@ class OrderController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function store(StoreOrderRequest $request)
-    {
+    {   
+        $amount = 0;
+        foreach($request->amount as $item){
+            $amount += $item;
+        }
         $data = $request->validated();
         $data['product'] = implode(",",$request->product);
         $data['quantity'] = implode(",",$request->quantity);
         $data['quantity'] = implode(",",$request->quantity);
+        $data['amounts'] = implode(",",$request->amount);
+        $data['amount'] = $amount;
         $data['sh_address'] = $request->sh_address;
+        $data['sh_country'] = $request->sh_country;
         $data['sh_city'] = $request->sh_city;
         $data['sh_state'] = $request->sh_state;
         $data['sh_zip_code'] = $request->sh_zip_code;
@@ -101,6 +108,7 @@ class OrderController extends Controller
         $data['bl_city'] = $request->bl_city;
         $data['bl_state'] = $request->bl_state;
         $data['bl_zip_code'] = $request->bl_zip_code;
+        $data['bl_country'] = $request->bl_country;
         $data['cellphone'] = $request->cellphone;
         $data['delivery_method'] = $request->delivery_method;
         $data['comment'] = $request->comment;
@@ -206,13 +214,30 @@ class OrderController extends Controller
         return redirect()->back()->with('success',$request->status.'successfully');
     }
 
-    public function export (){
+    public function export (Request $request){
+
         $fileName = 'orders.csv';
         if(Auth::user()->type == 'admin'){
-            $tasks = Order::select('orders.*','users.name as name')->join('users','users.id','=','orders.user_id')->orderBy('id','desc')->get();
+            $tasks = Order::select('orders.*','users.name as name')->join('users','users.id','=','orders.user_id')->orderBy('id','desc');
         }else{
-            $tasks = Order::select('orders.*','users.name as name')->join('users','users.id','=','orders.user_id')->where('users.id',Auth::user()->id)->orderBy('id','desc')->get();
+            $tasks = Order::select('orders.*','users.name as name')->join('users','users.id','=','orders.user_id')->where('users.id',Auth::user()->id)->orderBy('id','desc');
         }
+
+        if(!empty($request->date_from)){
+            if(!empty($request->date_to)){
+                $endDate = $request->date_to;
+            }else{
+                $endDate = date('Y-m-d');
+            }
+            $tasks->whereBetween('orders.created_at', [$request->date_from, $endDate]);
+        }
+        if(!empty($request->agent_id)){
+            $tasks->join('agents','agents.user_id','=','users.id');
+            $tasks->where('agents.id',$request->agent_id);
+        }
+
+
+        $tasks = $tasks->get();
         
 
         $headers = array(

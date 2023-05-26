@@ -8,7 +8,7 @@ class LoginController extends Controller
 {
     public function check_login(Request $request){
         $credentials = $request->validate([
-            'email' => ['required', 'email'],
+            'email' => ['required'],
             'password' => ['required'],
         ]);
  

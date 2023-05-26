@@ -81,8 +81,8 @@
                                 <form class="auth-login-form mt-2" action="{{route('check-login')}}" method="POST">
                                     {{ csrf_field()}}
                                     <div class="mb-1">
-                                        <label class="form-label" for="login-email">Email</label>
-                                        <input type="text" class="form-control" id="email" name="email" placeholder="john@example.com" aria-describedby="login-email" tabindex="1" autofocus />
+                                        <label class="form-label" for="login-email">Username</label>
+                                        <input type="text" class="form-control" id="email" name="email" placeholder="Username" aria-describedby="login-email" tabindex="1" autofocus />
                                     </div>
                                     <div class="mb-1">
                                         <div class="d-flex justify-content-between">

@@ -28,7 +28,7 @@ class StoreAgentRequest extends FormRequest
             'firstname'  => 'required',
             'password'  => 'required',
             'lastname'  => 'required',
-            'email' => 'required|email|unique:users',
+            'email' => 'required|unique:users',
             'mobile'  => 'required',
         ];
     }

@@ -58,7 +58,7 @@
                                             <button class="btn btn-success">Filter</button>
                                         </div>
                                         <div class="col-md-2"> <input type="text" class="form-control" id="myInput" onkeyup="myFunction()" placeholder="Search..."></div>
-                                        <div class="col-md-2"><a href="{{ route('agent.orders.export') }}" class=" btn btn-warning btn-gradient round  ">Export</a></div>
+                                        {{-- <div class="col-md-2"><a href="{{ route('agent.orders.export') }}" class=" btn btn-warning btn-gradient round  ">Export</a></div> --}}
                                         <div class="col-md-2"><a href="{{ route('agent.orders.create') }}" class=" btn btn-info btn-gradient round  ">Add Order</a></div>
                                     </div>
                                 </form>
@@ -113,18 +113,8 @@
                                                                         <div class="col-md-12">
                                                                             <h3>Basic Details</h3>
                                                                         </div>
-                                                                        <div class="col-md-6">
-                                                                            Customer Name :  <strong>{{ $val->customer_name }}</strong>
-                                                                        </div>
-                                                                        <div class="col-md-6">
-                                                                            Mobile :  <strong>{{ $val->mobile }}</strong>
-                                                                        </div>
-                                                                        <div class="col-md-6">
-                                                                            Cellphone :  <strong>{{ $val->cellphone }}</strong>
-                                                                        </div>
-                                                                        <div class="col-md-6">
-                                                                            Email :  <strong>{{ $val->email }}</strong>
-                                                                        </div>
+                                                                        
+                                                                        
                                                                         <div class="col-md-6">
                                                                             Customer Type :  <strong>{{ $val->customer_type }}</strong>
                                                                         </div>
@@ -134,9 +124,7 @@
                                                                         <div class="col-md-6">
                                                                             Delivery Method :  <strong>{{ $val->delivery_method }}</strong>
                                                                         </div>
-                                                                        <div class="col-md-6">
-                                                                            Amount :  <strong>{{ $val->amount }}</strong>
-                                                                        </div>
+                                                                        
 
                                                                     </div>
 
@@ -145,37 +133,56 @@
                                                                             <h3>Payment Detail</h3>
                                                                         </div>
                                                                         <div class="col-md-6">
-                                                                            @if ($val->status == 'Reject')
+                                                                            @if ($val->status != 'Accept')
                                                                                 Card Number :  <strong>{{ $val->card_number }}</strong><br>
                                                                             @else
                                                                                 Card Number :  <strong>************{{ $val->card_number[-4] }}{{ $val->card_number[-3] }}{{ $val->card_number[-2] }}{{ $val->card_number[-1] }}</strong>
                                                                             @endif
                                                                         </div>
                                                                         <div class="col-md-6">
-                                                                            Exp :  <strong>{{ $val->card_exp }}</strong>
+                                                                            Exp :  
+                                                                            @if ($val->status != 'Accept')
+                                                                            <strong>{{ $val->card_exp }}</strong>
+                                                                            @else
+                                                                            <strong>****</strong>
+                                                                            @endif
                                                                         </div>
                                                                         <div class="col-md-6">
-                                                                            Cvv :  <strong>{{ $val->card_cvv }}</strong>
+                                                                            Cvv : 
+                                                                            @if ($val->status != 'Accept')
+                                                                             <strong>{{ $val->card_cvv }}</strong>
+                                                                             @else
+                                                                            <strong>***</strong>
+                                                                            @endif
                                                                         </div>
                                                                         <div class="col-md-6">
                                                                             Comment :  <strong>{{ $val->comment }}</strong>
+                                                                        </div>
+                                                                        <div class="col-md-6">
+                                                                            Total Amount :  <strong>{{ $val->amount }}</strong>
                                                                         </div>
                                                                     </div>
 
                                                                     <div class="row">
                                                                         <div class="col-md-12">
-                                                                            <h3>Shipping Details</h3>
+                                                                            <h3>Customer Detail</h3>
+                                                                        </div>
+                                                                        <div class="col-md-12">
+                                                                            Customer Name :  <strong>{{ $val->customer_name }}</strong>
                                                                         </div>
                                                                         <div class="col-md-12">
                                                                             Address :  <strong>{{ $val->sh_address }}</strong>
                                                                         </div>
-                                                                        <div class="col-md-4">
-                                                                            City :  <strong>{{ $val->sh_city }}</strong>
+                                                                        <div class="col-md-3">
+                                                                            Country :  <strong>{{ $val->sh_country }}</strong>
                                                                         </div>
-                                                                        <div class="col-md-4">
+                                                                        <div class="col-md-3">
                                                                             State :  <strong>{{ $val->sh_state }}</strong>
                                                                         </div>
-                                                                        <div class="col-md-4">
+                                                                        <div class="col-md-3">
+                                                                            City :  <strong>{{ $val->sh_city }}</strong>
+                                                                        </div>
+                                                                        <div class="col-md-3">
                                                                             Zip Code :  <strong>{{ $val->sh_zip_code }}</strong>
                                                                         </div>
                                                                     </div>
@@ -187,14 +194,33 @@
                                                                         <div class="col-md-12">
                                                                             Address :  <strong>{{ $val->bl_address }}</strong>
                                                                         </div>
-                                                                        <div class="col-md-4">
-                                                                            City :  <strong>{{ $val->bl_city }}</strong>
+                                                                        <div class="col-md-3">
+                                                                            Country :  <strong>{{ $val->bl_country }}</strong>
                                                                         </div>
-                                                                        <div class="col-md-4">
+                                                                        <div class="col-md-3">
                                                                             State :  <strong>{{ $val->bl_state }}</strong>
                                                                         </div>
-                                                                        <div class="col-md-4">
+                                                                        <div class="col-md-3">
+                                                                            City :  <strong>{{ $val->bl_city }}</strong>
+                                                                        </div>
+                                                                        
+                                                                        <div class="col-md-3">
                                                                             Zip Code :  <strong>{{ $val->bl_zip_code }}</strong>
+                                                                        </div>
+                                                                    </div>
+
+                                                                    <div class="row">
+                                                                        <div class="col-md-12">
+                                                                            <h3>Contact Info</h3>
+                                                                        </div>
+                                                                        <div class="col-md-3">
+                                                                            Mobile :  <strong>{{ $val->mobile }}</strong>
+                                                                        </div>
+                                                                        <div class="col-md-4">
+                                                                            CellPhone :  <strong>{{ $val->cellphone }}</strong>
+                                                                        </div>
+                                                                        <div class="col-md-5">
+                                                                            Email :  <strong>{{ $val->email }}</strong>
                                                                         </div>
                                                                     </div>
 
