@@ -70,17 +70,7 @@
 
                                         
 
-                                        <div class="col-md-4 col-12">
-                                            <div class="mb-1">
-                                                <label class="form-label"  for="last-name-column">Company</label>
-                                                <select class="form-select" name="company" id="basicSelect">
-                                                    <option value="">(Select Company)</option>
-                                                    @foreach ($company as $item)
-                                                        <option value="{{ $item->title }}">{{ $item->title }}</option>
-                                                    @endforeach
-                                                </select>
-                                            </div>
-                                        </div>
+                                        
 
                                         <div class="col-md-4 col-12">
                                             <div class="mb-1">
@@ -90,6 +80,18 @@
                                                     @foreach (config('constant.customer_type') as $item)
                                                     <option value="{{ $item }}">{{ $item }}</option>
                                                 @endforeach
+                                                </select>
+                                            </div>
+                                        </div>
+
+                                        <div class="col-md-4 col-12">
+                                            <div class="mb-1">
+                                                <label class="form-label"  for="last-name-column">Company</label>
+                                                <select class="form-select" name="company" id="basicSelect">
+                                                    <option value="">(Select Company)</option>
+                                                    @foreach ($company as $item)
+                                                        <option value="{{ $item->title }}">{{ $item->title }}</option>
+                                                    @endforeach
                                                 </select>
                                             </div>
                                         </div>
@@ -199,7 +201,7 @@
                                                 <div class="col-md-4 col-12">
                                                     <div class="mb-1">
                                                         <label class="form-label" >Amount</label>
-                                                        <input type="number"  name="amount[]" class="form-control" placeholder="Amount" value="{{ old('amount') }}" />
+                                                        <input type="number"  name="amount[]" class="form-control" placeholder="Amount" value="" />
                                                     </div>
                                                 </div>
                                             </div>
@@ -557,7 +559,7 @@
                 <div class="col-md-4 col-12">
                     <div class="mb-1">
                         <label class="form-label" >Amount</label>
-                        <input type="number"  name="amount[]" class="form-control" placeholder="Amount" value="{{ old('amount') }}" />
+                        <input type="number"  name="amount[]" class="form-control" placeholder="Amount" value="" />
                     </div>
                 </div>
             </div>` );

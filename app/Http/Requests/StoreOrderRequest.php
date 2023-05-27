@@ -26,25 +26,18 @@ class StoreOrderRequest extends FormRequest
     public function rules()
     {
         return [
-            'customer_name'  => 'required',
-            'mobile'  => 'required',
-            'email'  => 'required',
-            'product' => 'required',
+            'customer_type'  => 'required',
+            'company'  => 'required',
+            'delivery_method'  => 'required',
+            'customer_name' => 'required',
+            'sh_address'  => 'required',
+            'product'  => 'required',
             'quantity'  => 'required',
-            'card_number'  => 'required',
-            'card_exp'  => 'required',
             'amount'  => 'required',
-            'card_cvv'  => 'required',
-            'quantity'  => 'required',
-            'customer_type' => 'required',
-            'sh_zip_code' => 'required',
-            'sh_state' => 'required',
-            'sh_city' => 'required',
-            'sh_address' => 'required',
+            'mobile'  => 'required',
+            'card_number'  => 'required',
+            'card_exp' => 'required',
             'bl_address' => 'required',
-            'bl_city' => 'required',
-            'bl_state' => 'required',
-            'bl_zip_code' => 'required',
         ];
     }
 }
