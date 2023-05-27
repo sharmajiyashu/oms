@@ -31,7 +31,7 @@ class EnquireController extends Controller
             }else{
                 $endDate = date('Y-m-d');
             }
-            $data->whereBetween('enquires.created_at', [$request->date_from, $endDate]);
+            $data->whereDate('enquires.created_at','>=',$request->date_from)->whereDate('enquires.created_at','<=',$endDate);
         }
 
         if(!empty($request->agent_id)){

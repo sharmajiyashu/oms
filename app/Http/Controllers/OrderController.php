@@ -39,7 +39,7 @@ class OrderController extends Controller
                 }else{
                     $endDate = date('Y-m-d');
                 }
-                $orders->whereBetween('orders.created_at', [$request->date_from, $endDate]);
+                $orders->whereDate('orders.created_at','>=',$request->date_from)->whereDate('orders.created_at','<=',$endDate);
             }
             if(!empty($request->agent_id)){
                 $orders->join('agents','agents.user_id','=','users.id');
@@ -192,11 +192,11 @@ class OrderController extends Controller
      */
     public function destroy(Order $order)
     {
-        //
+        //5
     }
 
     function generate_orderid(){
-        $coupon = 'ODR'.random_int(10000, 99999);
+        $coupon = 'TP'.random_int(10000, 99999);
         if(Order::where('order_id',$coupon)->first()){
             $this->generate_orderid();
         }else{
@@ -229,7 +229,7 @@ class OrderController extends Controller
             }else{
                 $endDate = date('Y-m-d');
             }
-            $tasks->whereBetween('orders.created_at', [$request->date_from, $endDate]);
+            $tasks->whereDate('orders.created_at','>=',$request->date_from)->whereDate('orders.created_at','<=',$endDate);
         }
         if(!empty($request->agent_id)){
             $tasks->join('agents','agents.user_id','=','users.id');
