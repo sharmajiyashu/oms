@@ -187,6 +187,7 @@
                                                             @foreach ($product as $item)
                                                                 <option value="{{ $item->title }}">{{ $item->title }}</option>
                                                             @endforeach
+                                                            <option value="other">Other</option>
                                                         </select>
                                                     </div>
                                                 </div>
@@ -209,7 +210,15 @@
 
                                         <div>
                                             <div class="mb-1">
-                                                <a href="#" class="" onclick="Append_product()">Add More Product</a>
+                                                <div class="row">
+                                                    <div class="col-md-2">
+                                                        <a href="#" class="" onclick="Append_product()">Add More Product</a> 
+                                                    </div>
+                                                    <div class="col-md-3">
+                                                        <input type="text" class="form-control" name="other_product_name" placeholder="Other Product name">
+                                                    </div>
+                                                </div>
+                                                
                                             </div>    
                                         </div>
 
@@ -545,6 +554,7 @@
                             @foreach ($product as $item)
                                 <option value="{{ $item->title }}">{{ $item->title }}</option>
                             @endforeach
+                            <option value="other">Other</option>
                         </select>
                     </div>
                 </div>

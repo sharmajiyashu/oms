@@ -34,7 +34,12 @@
                 <span class="brand-logo" style="">
                             {{-- <img src="{{asset('public/bidnanza_logo.png')}}" alt="" style="width: 175px;"> --}}
                     </span>
-                         <h2 class="brand-text" style="color:white">AHD Portal</h2>
+                        @if (Auth::user()->type == 'admin')
+                            <h1 class="brand-text" style="color:white">AHD Admin Portal</h1>
+                        @else
+                            <h2 class="brand-text" style="color:white">AHD Portal</h2>
+                        @endif
+                         
                     </a></li>
                 <li class="nav-item nav-toggle"><a class="nav-link modern-nav-toggle pe-0" data-bs-toggle="collapse"><i class="d-block d-xl-none text-primary toggle-icon font-medium-4" data-feather="x"></i><i class="d-none d-xl-block collapse-toggle-icon font-medium-4  text-primary" data-feather="disc" data-ticon="disc"></i></a></li>
             </ul>

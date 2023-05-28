@@ -158,8 +158,38 @@
                                                                         <div class="col-md-6">
                                                                             Comment :  <strong>{{ $val->comment }}</strong>
                                                                         </div>
-                                                                        <div class="col-md-6">
+                                                                        <div class="col-md-12">
                                                                             Total Amount :  <strong>{{ $val->amount }}</strong>
+                                                                        </div>
+
+                                                                        <div class="col-md-4">
+                                                                            <h4>Product</h4>
+                                                                            @php
+                                                                                $products = explode(",",$val->product);
+                                                                                foreach ($products as $key => $value) {
+                                                                                    echo $value; echo "<br>";
+                                                                                }
+                                                                            @endphp
+                                                                        </div>
+
+                                                                        <div class="col-md-4">
+                                                                            <h4>Quanity</h4>
+                                                                            @php
+                                                                                $products = explode(",",$val->quantity);
+                                                                                foreach ($products as $key => $value) {
+                                                                                    echo $value; echo "<br>";
+                                                                                }
+                                                                            @endphp
+                                                                        </div>
+
+                                                                        <div class="col-md-4">
+                                                                            <h4>Amount</h4>
+                                                                            @php
+                                                                                $products = explode(",",$val->amounts);
+                                                                                foreach ($products as $key => $value) {
+                                                                                    echo $value; echo "<br>";
+                                                                                }
+                                                                            @endphp
                                                                         </div>
                                                                     </div>
 

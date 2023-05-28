@@ -11,8 +11,8 @@ use App\Models\FollowMaster;
 use App\Http\Requests\StoreOrderRequest;
 use App\Http\Requests\UpdateOrderRequest;
 use Illuminate\Http\Request;
-use DB;
-use Auth;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Auth;
 
 class OrderController extends Controller
 {
@@ -93,7 +93,15 @@ class OrderController extends Controller
             $amount += $item;
         }
         $data = $request->validated();
-        $data['product'] = implode(",",$request->product);
+        $product = [];
+        foreach($request->product as $key=>$val){
+            if($val == 'other'){
+                $val = $request->other_product_name;
+            }
+            $product[] = $val;
+        }
+
+        $data['product'] = implode(",",$product);
         $data['quantity'] = implode(",",$request->quantity);
         $data['quantity'] = implode(",",$request->quantity);
         $data['amounts'] = implode(",",$request->amount);
