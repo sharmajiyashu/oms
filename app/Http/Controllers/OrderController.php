@@ -156,9 +156,13 @@ class OrderController extends Controller
      */
     public function edit(Order $order)
     {
-        $cities = DB::table('cities')->get();
-        $states = DB::table('states')->get();
-        return view('admin.orders.edit',compact('order','cities','states'));
+        $cities = [];
+        $states = [];
+        $country = DB::table('countries')->get();
+        $company = Company::where('status','Active')->orderby('title','asc')->get();
+        $product = Product::where('status','Active')->orderby('title','asc')->get();
+        $follow_up = FollowMaster::where('status','Active')->orderby('title','asc')->get();
+        return view('admin.orders.edit',compact('order','cities','states','company','product','country','follow_up'));
     }
 
     /**
@@ -170,11 +174,25 @@ class OrderController extends Controller
      */
     public function update(UpdateOrderRequest $request, Order $order)
     {
+        $amount = 0;
+        foreach($request->amount as $item){
+            $amount += $item;
+        }
         $data = $request->validated();
-        $data['product'] = implode(",",$request->product);
+        $product = [];
+        foreach($request->product as $key=>$val){
+            if($val == 'other'){
+                $val = $request->other_product_name;
+            }
+            $product[] = $val;
+        }
+        $data['product'] = implode(",",$product);
         $data['quantity'] = implode(",",$request->quantity);
         $data['quantity'] = implode(",",$request->quantity);
+        $data['amounts'] = implode(",",$request->amount);
+        $data['amount'] = $amount;
         $data['sh_address'] = $request->sh_address;
+        $data['sh_country'] = $request->sh_country;
         $data['sh_city'] = $request->sh_city;
         $data['sh_state'] = $request->sh_state;
         $data['sh_zip_code'] = $request->sh_zip_code;
@@ -183,11 +201,13 @@ class OrderController extends Controller
         $data['bl_city'] = $request->bl_city;
         $data['bl_state'] = $request->bl_state;
         $data['bl_zip_code'] = $request->bl_zip_code;
+        $data['bl_country'] = $request->bl_country;
         $data['cellphone'] = $request->cellphone;
         $data['delivery_method'] = $request->delivery_method;
         $data['comment'] = $request->comment;
-        $data['tracking_id'] = $request->tracking_id;
-        
+        // $data['order_id'] = $this->generate_orderid();
+        // $data['user_id'] = Auth::user()->id;
+        // $data['follow_up_type'] = $request->follow_up_type;
         Order::where('id',$order->id)->update($data);
         return redirect()->route('admin.orders.index')->with('success','orders update success');
     }
@@ -224,7 +244,7 @@ class OrderController extends Controller
 
     public function export (Request $request){
 
-        $fileName = 'orders.csv';
+        $fileName = 'orders'.date('y-m-d').'.csv';
         if(Auth::user()->type == 'admin'){
             $tasks = Order::select('orders.*','users.name as name')->join('users','users.id','=','orders.user_id')->orderBy('id','desc');
         }else{
@@ -285,6 +305,12 @@ class OrderController extends Controller
             fputcsv($file, $columns);
 
             foreach ($tasks as $task) {
+
+                if($task->status == 'Accept'){
+                    $task->card_number = '************'.$task->card_number[-4].$task->card_number[-3].$task->card_number[-2].$task->card_number[-1];
+                    $task->card_cvv = "***";
+                    $task->card_exp = "**-**";
+                }
                 $row['order_id']  = $task->order_id;
                 $row['status']    = $task->status;
                 $row['name']    = $task->name;

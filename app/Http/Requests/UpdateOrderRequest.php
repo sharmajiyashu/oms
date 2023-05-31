@@ -24,16 +24,18 @@ class UpdateOrderRequest extends FormRequest
     public function rules()
     {
         return [
-            'customer_name'  => 'required',
-            'mobile'  => 'required',
-            'email'  => 'required',
-            'product' => 'required',
+            'customer_type'  => 'required',
+            'company'  => 'required',
+            'delivery_method'  => 'required',
+            'customer_name' => 'required',
+            'sh_address'  => 'required',
+            'product'  => 'required',
             'quantity'  => 'required',
-            'card_number'  => 'required',
-            'card_exp'  => 'required',
             'amount'  => 'required',
-            'card_cvv'  => 'required',
-            'quantity'  => 'required',
+            'mobile'  => 'required',
+            'card_number'  => 'required',
+            'card_exp' => 'required',
+            'bl_address' => 'required',
         ];
     }
 }

@@ -129,7 +129,7 @@
                                                                     </div>
                                                                     <div class="modal-body" style="    font-size: 14px;">
                                                                         <div class="row">
-                                                                            <div class="col-md-12" style="font-size: 15px;">
+                                                                            <div class="col-md-6" style="font-size: 15px;">
                                                                                 @if ($val->status == 'Reject')
                                                                                     <span
                                                                                         class="fw-bolder text-danger">Declined</span>
@@ -148,6 +148,9 @@
                                                                                     <span
                                                                                         class="fw-bolder ">{{ $val->tracking_id }}</span>
                                                                                 @endif
+                                                                            </div>
+                                                                            <div class="col-md-6">
+                                                                                <a href="{{ route('admin.follow-up.show-detail',$val->order_id) }}" class="btn-relief"><strong>Follow-Up</strong></a>
                                                                             </div>
                                                                         </div>
                                                                         <div class="row">
