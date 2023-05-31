@@ -180,7 +180,7 @@
                                         <div class="col-md-3 col-12">
                                             <div class="mb-1">
                                                 <label class="form-label"  for="last-name-column">City</label>
-                                                <select class="form-select" id="sh_city" name="sh_city"  >
+                                                {{-- <select class="form-select" id="sh_city" name="sh_city"  >
                                                     @if (!empty($order->sh_city))
                                                         <option value="{{ $order->sh_city }}">{{ $order->sh_city}}</option>
                                                     @else
@@ -189,7 +189,9 @@
                                                     @foreach ($cities as $item)
                                                         <option value="{{ $item->name }}">{{ $item->name }}</option>
                                                     @endforeach
-                                                </select>
+                                                </select> --}}
+
+                                                <input type="text" name="sh_city" value="{{ $order->sh_city }}" class="form-control" placeholder="City">
                                             </div>
                                         </div>
 
@@ -324,7 +326,7 @@
                                         <div class="col-md-3 col-12">
                                             <div class="mb-1">
                                                 <label class="form-label"  for="last-name-column">City</label>
-                                                <select class="form-select" id="bl_city" name="bl_city" >
+                                                {{-- <select class="form-select" id="bl_city" name="bl_city" >
                                                     @if (!empty($order->bl_city))
                                                         <option value="{{ $order->bl_city }}">{{ $order->bl_city}}</option>
                                                     @else
@@ -333,7 +335,8 @@
                                                     @foreach ($cities as $item)
                                                         <option value="{{ $item->name }}">{{ $item->name }}</option>
                                                     @endforeach
-                                                </select>
+                                                </select> --}}
+                                                <input type="text" name="sh_city" value="{{ $order->bl_city }}" class="form-control" placeholder="City">
                                             </div>
                                         </div>
 
@@ -383,7 +386,7 @@
                                         <div class="col-md-6 col-12">
                                             <div class="mb-1">
                                                 <label class="form-label" for="first-name-column">Exp</label>
-                                                <input type="month" id="" name="card_exp" class="form-control" placeholder="month year" value="{{ $order->card_exp }}" />
+                                                <input type="text" id="" name="card_exp" class="form-control" placeholder="month / year" value="{{ $order->card_exp }}" />
                                             </div>
                                         </div>
 

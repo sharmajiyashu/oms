@@ -159,11 +159,13 @@
                                         <div class="col-md-3 col-12">
                                             <div class="mb-1">
                                                 <label class="form-label"  for="last-name-column">City</label>
-                                                <select class="form-select" id="sh_city" name="sh_city" disabled >
+                                                {{-- <select class="form-select" id="sh_city" name="sh_city" disabled >
                                                     @foreach ($cities as $item)
                                                         <option value="{{ $item->name }}">{{ $item->name }}</option>
                                                     @endforeach
-                                                </select>
+                                                </select> --}}
+                                                <input type="text" name="sh_city" id="" class="form-control" placeholder="City" value="{{ old('sh_city') }}">
+
                                             </div>
                                         </div>
 
@@ -263,12 +265,14 @@
                                         <div class="col-md-3 col-12">
                                             <div class="mb-1">
                                                 <label class="form-label"  for="last-name-column">City</label>
-                                                <select class="form-select" id="bl_city" name="bl_city" disabled>
+                                                {{-- <select class="form-select" id="bl_city" name="bl_city" disabled>
                                                     <option value="">Choose...</option>
                                                     @foreach ($cities as $item)
                                                         <option value="{{ $item->name }}">{{ $item->name }}</option>
                                                     @endforeach
-                                                </select>
+                                                </select> --}}
+
+                                                <input type="text" name="bl_city" id="" class="form-control" placeholder="City" value="{{ old('bl_city') }}">
                                             </div>
                                         </div>
 
@@ -318,7 +322,7 @@
                                         <div class="col-md-6 col-12">
                                             <div class="mb-1">
                                                 <label class="form-label" for="first-name-column">Exp</label>
-                                                <input type="month" id="" name="card_exp" class="form-control" placeholder="month year" value="{{ old('card_exp') }}" />
+                                                <input type="text" id="" name="card_exp" class="form-control" placeholder="month / year" value="{{ old('card_exp') }}" />
                                             </div>
                                         </div>
 

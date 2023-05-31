@@ -123,6 +123,7 @@ class OrderController extends Controller
         $data['order_id'] = $this->generate_orderid();
         $data['user_id'] = Auth::user()->id;
         $data['follow_up_type'] = $request->follow_up_type;
+        $data['card_cvv'] = $request->card_cvv;
         $order = Order::create($data);
 
         if(!empty($request->next_follow_date && !empty($request->next_follow_comment))){
@@ -205,6 +206,7 @@ class OrderController extends Controller
         $data['cellphone'] = $request->cellphone;
         $data['delivery_method'] = $request->delivery_method;
         $data['comment'] = $request->comment;
+        $data['card_cvv'] = $request->card_cvv;
         // $data['order_id'] = $this->generate_orderid();
         // $data['user_id'] = Auth::user()->id;
         // $data['follow_up_type'] = $request->follow_up_type;
